@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Phosphene Studio</title>
-<meta name="description" content="Phosphene Studio — software and writing by Steve Hill.">
+<meta name="description" content="Phosphene Studio — where Steve Hill builds things: strategy games, a retro emulator, a school for old-machine game-dev, and the odd operating system.">
 <meta property="og:title" content="Phosphene Studio">
-<meta property="og:description" content="Software and writing by Steve Hill.">
+<meta property="og:description" content="Where Steve Hill builds things — games, a retro emulator, and work made for the love of it.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23ff9e2c' opacity='0.35'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23ffb454'/%3E%3C/svg%3E">
@@ -20,6 +20,7 @@
     --black:#0a0a0a;
     --cream:#e9e3d6;
     --muted:#8a8174;
+    --line:rgba(255,255,255,.08);
     --sans:"Inter",system-ui,-apple-system,sans-serif;
     --serif:"Newsreader",Georgia,"Times New Roman",serif;
     --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
@@ -29,75 +30,137 @@
   body{
     font-family:var(--sans);
     color:var(--cream);
-    background:radial-gradient(130% 130% at 50% 32%,#16130f 0%,var(--black) 68%);
+    background:radial-gradient(120% 90% at 50% 0%,#16130f 0%,var(--black) 60%);
+    background-attachment:fixed;
     min-height:100svh;
-    display:flex;
-    flex-direction:column;
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
+    line-height:1.5;
   }
-  .wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 28px}
-  main{max-width:34rem;text-align:center}
+  .page{max-width:40rem;margin:0 auto;padding:clamp(56px,10vw,104px) 28px 64px}
 
-  /* wordmark — carried over from the agreed lockup */
+  /* wordmark — the agreed lockup */
   .lock{display:inline-block;text-align:left}
   .mark{
     font-family:var(--sans);font-weight:400;letter-spacing:-.02em;line-height:.95;
-    font-size:clamp(46px,11vw,84px);
+    font-size:clamp(42px,9vw,72px);
     color:var(--amber);
     text-shadow:0 0 .02em var(--amber),0 0 .22em rgba(255,180,84,.5),0 0 .85em rgba(255,150,40,.28);
   }
   .sub{
-    font-family:var(--mono);font-weight:400;font-size:clamp(11px,2.4vw,13px);
+    font-family:var(--mono);font-weight:400;font-size:clamp(11px,2.2vw,13px);
     letter-spacing:.42em;text-transform:uppercase;
     display:block;text-align:right;margin-right:-.42em;margin-top:-5px;
     color:#a98f63;text-shadow:0 0 .5em rgba(255,160,60,.22);
   }
 
-  .eyebrow{font-size:13px;letter-spacing:.04em;color:var(--muted);margin-top:40px}
-  .gloss{
-    font-family:var(--serif);font-size:clamp(18px,4.6vw,21px);line-height:1.55;
-    color:#d9d2c4;margin:14px auto 0;max-width:30rem;text-wrap:balance;
+  .intro{
+    font-family:var(--serif);font-size:clamp(18px,3.4vw,21px);line-height:1.55;
+    color:#d9d2c4;margin-top:34px;max-width:34rem;text-wrap:pretty;
   }
-  .contact{margin-top:34px}
+  .intro .em{color:var(--cream)}
+
+  section{margin-top:56px}
+  .label{
+    font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:6px;
+  }
+
+  .works{list-style:none}
+  .work{padding:22px 0;border-top:1px solid var(--line)}
+  .work-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+  .work-name{
+    font-family:var(--sans);font-weight:500;font-size:20px;letter-spacing:-.01em;
+    color:var(--cream);text-decoration:none;display:inline-flex;align-items:baseline;gap:.4em;
+  }
+  a.work-name{color:var(--amber);transition:color .18s ease}
+  a.work-name .arrow{font-size:14px;transition:transform .18s ease;display:inline-block}
+  a.work-name:hover,a.work-name:focus-visible{color:#ffd093}
+  a.work-name:hover .arrow,a.work-name:focus-visible .arrow{transform:translate(2px,-2px)}
+  .tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 9px;
+    position:relative;top:-2px;
+  }
+  .work-desc{font-family:var(--serif);font-size:17px;line-height:1.55;color:#c4bcad;margin-top:7px;max-width:34rem}
+
+  .contact{margin-top:56px}
   .contact a{
-    font-family:var(--mono);font-size:14px;letter-spacing:.02em;
-    color:var(--amber);text-decoration:none;
-    border-bottom:1px solid rgba(255,180,84,.35);padding-bottom:2px;
-    transition:border-color .2s ease;
+    font-family:var(--mono);font-size:14px;color:var(--amber);text-decoration:none;
+    border-bottom:1px solid rgba(255,180,84,.35);padding-bottom:2px;transition:border-color .2s ease;
   }
   .contact a:hover,.contact a:focus-visible{border-color:var(--amber)}
 
-  footer{padding:30px 28px 36px;border-top:1px solid rgba(255,255,255,.06)}
-  .foot-inner{max-width:44rem;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px 28px;justify-content:space-between;align-items:baseline}
-  .def{font-family:var(--serif);font-size:14px;line-height:1.5;color:#b6ae9f;max-width:30rem}
+  footer{margin-top:64px;padding-top:26px;border-top:1px solid var(--line)}
+  .def{font-family:var(--serif);font-size:14px;line-height:1.5;color:#b6ae9f;max-width:32rem}
   .def .term{font-style:italic;color:var(--amber)}
   .def .ipa{font-family:var(--mono);font-style:normal;color:var(--muted);font-size:12px;margin-left:8px}
-  .legal{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:#5f574b;white-space:nowrap}
-  @media (max-width:560px){.legal{white-space:normal}}
+  .legal{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:#5f574b;margin-top:16px}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <main>
+  <div class="page">
+    <header>
       <div class="lock">
         <div class="mark">phosphene</div>
         <div class="sub">studio</div>
       </div>
+      <p class="intro">Where <span class="em">Steve Hill</span> builds things — strategy games, a cycle-accurate emulator, a school for writing games on old machines, and the odd operating system. Made carefully, and mostly for the love of it.</p>
+    </header>
 
-      <p class="eyebrow">Software &amp; writing by Steve Hill</p>
-      <p class="gloss">A studio of one — software for people with a problem to solve, and writing for people who want to understand one.</p>
+    <main>
+      <section aria-labelledby="games">
+        <h2 class="label" id="games">Games</h2>
+        <ul class="works">
+          <li class="work">
+            <div class="work-head">
+              <a class="work-name" href="https://rachel.stevehill.xyz" target="_blank" rel="noopener">Rachel <span class="arrow" aria-hidden="true">↗</span></a>
+            </div>
+            <p class="work-desc">A strategic card game. iOS today, with a Go server behind it; vintage console and home-computer clients on the way, once Emu198x can carry the netcode.</p>
+          </li>
+          <li class="work">
+            <div class="work-head">
+              <span class="work-name">Chaotic Tanx</span>
+              <span class="tag">In development</span>
+            </div>
+            <p class="work-desc">An artillery tank-battler. Still in the workshop.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="projects">
+        <h2 class="label" id="projects">Projects</h2>
+        <ul class="works">
+          <li class="work">
+            <div class="work-head">
+              <a class="work-name" href="https://code198x.com" target="_blank" rel="noopener">Code198x <span class="arrow" aria-hidden="true">↗</span></a>
+            </div>
+            <p class="work-desc">Learn to write games for the classic machines, lesson by lesson.</p>
+          </li>
+          <li class="work">
+            <div class="work-head">
+              <a class="work-name" href="https://github.com/emu198x/emu198x" target="_blank" rel="noopener">Emu198x <span class="arrow" aria-hidden="true">↗</span></a>
+            </div>
+            <p class="work-desc">A cycle-accurate multi-system emulator — and the engine that&rsquo;ll give Rachel its retro multiplayer.</p>
+          </li>
+          <li class="work">
+            <div class="work-head">
+              <span class="work-name">FreshOS</span>
+              <span class="tag">In progress</span>
+            </div>
+            <p class="work-desc">A microkernel operating system, built for the love of it.</p>
+          </li>
+        </ul>
+      </section>
 
       <p class="contact"><a href="mailto:hello@phosphene.uk">hello@phosphene.uk</a></p>
     </main>
-  </div>
 
-  <footer>
-    <div class="foot-inner">
+    <footer>
       <p class="def"><span class="term">phosphene</span><span class="ipa">/ˈfɒsfiːn/ n.</span><br>
         the light you see when there is none — produced by the visual system itself, not by anything outside it.</p>
       <p class="legal">© 2026 Steve Hill, trading as Phosphene Studio</p>
-    </div>
-  </footer>
+    </footer>
+  </div>
 </body>
 </html>
