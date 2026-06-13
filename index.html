@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phosphene Studio</title>
+<meta name="description" content="Phosphene Studio — software and writing by Steve Hill.">
+<meta property="og:title" content="Phosphene Studio">
+<meta property="og:description" content="Software and writing by Steve Hill.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23ff9e2c' opacity='0.35'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23ffb454'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --amber:#ffb454;
+    --amber-deep:#ff9e2c;
+    --black:#0a0a0a;
+    --cream:#e9e3d6;
+    --muted:#8a8174;
+    --sans:"Inter",system-ui,-apple-system,sans-serif;
+    --serif:"Newsreader",Georgia,"Times New Roman",serif;
+    --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--sans);
+    color:var(--cream);
+    background:radial-gradient(130% 130% at 50% 32%,#16130f 0%,var(--black) 68%);
+    min-height:100svh;
+    display:flex;
+    flex-direction:column;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .wrap{flex:1;display:flex;align-items:center;justify-content:center;padding:48px 28px}
+  main{max-width:34rem;text-align:center}
+
+  /* wordmark — carried over from the agreed lockup */
+  .lock{display:inline-block;text-align:left}
+  .mark{
+    font-family:var(--sans);font-weight:400;letter-spacing:-.02em;line-height:.95;
+    font-size:clamp(46px,11vw,84px);
+    color:var(--amber);
+    text-shadow:0 0 .02em var(--amber),0 0 .22em rgba(255,180,84,.5),0 0 .85em rgba(255,150,40,.28);
+  }
+  .sub{
+    font-family:var(--mono);font-weight:400;font-size:clamp(11px,2.4vw,13px);
+    letter-spacing:.42em;text-transform:uppercase;
+    display:block;text-align:right;margin-right:-.42em;margin-top:-5px;
+    color:#a98f63;text-shadow:0 0 .5em rgba(255,160,60,.22);
+  }
+
+  .eyebrow{font-size:13px;letter-spacing:.04em;color:var(--muted);margin-top:40px}
+  .gloss{
+    font-family:var(--serif);font-size:clamp(18px,4.6vw,21px);line-height:1.55;
+    color:#d9d2c4;margin:14px auto 0;max-width:30rem;text-wrap:balance;
+  }
+  .contact{margin-top:34px}
+  .contact a{
+    font-family:var(--mono);font-size:14px;letter-spacing:.02em;
+    color:var(--amber);text-decoration:none;
+    border-bottom:1px solid rgba(255,180,84,.35);padding-bottom:2px;
+    transition:border-color .2s ease;
+  }
+  .contact a:hover,.contact a:focus-visible{border-color:var(--amber)}
+
+  footer{padding:30px 28px 36px;border-top:1px solid rgba(255,255,255,.06)}
+  .foot-inner{max-width:44rem;margin:0 auto;display:flex;flex-wrap:wrap;gap:18px 28px;justify-content:space-between;align-items:baseline}
+  .def{font-family:var(--serif);font-size:14px;line-height:1.5;color:#b6ae9f;max-width:30rem}
+  .def .term{font-style:italic;color:var(--amber)}
+  .def .ipa{font-family:var(--mono);font-style:normal;color:var(--muted);font-size:12px;margin-left:8px}
+  .legal{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:#5f574b;white-space:nowrap}
+  @media (max-width:560px){.legal{white-space:normal}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <main>
+      <div class="lock">
+        <div class="mark">phosphene</div>
+        <div class="sub">studio</div>
+      </div>
+
+      <p class="eyebrow">Software &amp; writing by Steve Hill</p>
+      <p class="gloss">A studio of one — software for people with a problem to solve, and writing for people who want to understand one.</p>
+
+      <p class="contact"><a href="mailto:hello@phosphene.uk">hello@phosphene.uk</a></p>
+    </main>
+  </div>
+
+  <footer>
+    <div class="foot-inner">
+      <p class="def"><span class="term">phosphene</span><span class="ipa">/ˈfɒsfiːn/ n.</span><br>
+        the light you see when there is none — produced by the visual system itself, not by anything outside it.</p>
+      <p class="legal">© 2026 Steve Hill, trading as Phosphene Studio</p>
+    </div>
+  </footer>
+</body>
+</html>
