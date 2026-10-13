@@ -60,7 +60,25 @@ const integratedSimple=finalState();
 assert.notEqual(integratedSimple.star,simpleFinal.star);
 assert.equal(integratedSimple.letter,'0');
 assert.notEqual(integratedSimple.pixels,simpleFinal.pixels);
+// Compare rendered glyph pixels across treatments, independent of their drawing code.
+function region(draws, left, top, width, height) {
+  const lit = new Set();
+  for (const [color,x,y,w,h] of draws) {
+    for (let py=Math.max(top,y);py<Math.min(top+height,y+h);py++) {
+      for (let px=Math.max(left,x);px<Math.min(left+width,x+w);px++) {
+        const key=`${px-left},${py-top}`;
+        if (color === '#162a40') lit.delete(key); else lit.add(key);
+      }
+    }
+  }
+  return [...lit].sort();
+}
+const normalO = region(JSON.parse(simpleFinal.pixels),116,98,10,10);
+const settledO = region(JSON.parse(integratedSimple.pixels),133,98,10,10);
+assert.deepEqual(settledO,normalO);
+assert.ok(settledO.length > 0);
+assert.equal(settledO.includes('4,4'),false,'The finished o has a hollow centre');
 choose(optical); assert.deepEqual(finalState(),integratedSimple);
 beside.checked=true; letter.checked=false; beside.handlers.change();
 assert.deepEqual(finalState(),opticalFinal);
-console.log('PASS: both treatments return to their own identical final mark and pixels across animation variants; mode switching keeps one frame loop; pause, completion, visibility and reduced motion cancel work.');
+console.log('PASS: the pixel star settles into the normal hollow o; final states agree across animation variants; mode switching keeps one frame loop; pause, completion, visibility and reduced motion cancel work.');

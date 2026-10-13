@@ -212,6 +212,7 @@ function drawPixel(ms) {
   const starX = integrated ? 137 : 217;
   const starY = integrated ? 102 : 100;
   const originX = integrated ? 109 : 92;
+  const letterMorph = integrated ? (optical ? progress(tick, 1120, 1640) : progress(tick, 480, 800)) : 0;
   const radius = Math.round((integrated ? 4 : 16) * settle(rayProgress));
   const separation = optical ? Math.round(3 * (1 - settle(progress(tick, 700, 1500)))) : 0;
   if (optical && tick > 0 && tick < 1000) {
@@ -224,20 +225,31 @@ function drawPixel(ms) {
       }
     }
   }
-  if (frame > 0 && (!optical || tick > 600)) {
+  if (frame > 0 && (!optical || tick > 600) && letterMorph < 1) {
     const passes = separation ? [[-separation, '#8fe8df'], [separation, '#c6a5ee'], [0, '#eced9f']] : [[0, '#eced9f']];
     for (const [offset, color] of passes) {
       context.fillStyle = color;
       for (let ray = 0; ray < (integrated ? 8 : 16); ray++) {
         const angle = ray * Math.PI / (integrated ? 4 : 8);
-        pixelLine(starX + offset, starY, starX + offset + Math.round(Math.cos(angle) * radius), starY + Math.round(Math.sin(angle) * radius));
+        const inner = Math.round(radius * letterMorph);
+        pixelLine(starX + offset + Math.round(Math.cos(angle) * inner), starY + Math.round(Math.sin(angle) * inner), starX + offset + Math.round(Math.cos(angle) * radius), starY + Math.round(Math.sin(angle) * radius));
       }
     }
   }
   context.fillStyle = '#eced9f';
   const reveal = Math.round(108 * settle(optical ? progress(tick, 1080, 1850) : progress(tick, 390, 950)));
   [...'Phosphene'].forEach((letter, index) => {
-    if (integrated && letter === 'o') return;
+    if (integrated && letter === 'o' && letterMorph < 1) {
+      // Grow the actual letter outline as the light withdraws from its centre.
+      // Two integer-pixel stages bridge the one-pixel rays to the two-pixel type.
+      if (letterMorph > 0) {
+        const weight = letterMorph < .5 ? 1 : 2;
+        GLYPHS.o.forEach((row, y) => [...row].forEach((bit, x) => {
+          if (bit === '1') context.fillRect(originX + index * 12 + x * 2, 94 + y * 2, weight, weight);
+        }));
+      }
+      return;
+    }
     GLYPHS[letter].forEach((row, y) => {
       [...row].forEach((bit, x) => {
         const column = index * 12 + x * 2;

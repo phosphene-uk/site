@@ -48,7 +48,7 @@ SVG gradients, local blur and a moving luminance mask create the optical effect.
 
 The **Mark** choice compares **Separate star** with **Star as o**. The experiment keeps the o's advance width, hides its printed glyph and positions the radial mark using the loaded Lilita lettering. The complete name remains available to assistive technology. The wordmark is centred on both landscape and portrait screens, and the optical reveal radiates out from the star inside it.
 
-The pixel version uses eight rays within a nine-pixel diameter. At that size it can read as an asterisk; this is an explicit legibility study, not an approved replacement for every small logo. The existing separate-star treatment and website identity are preserved.
+The pixel version briefly opens into an eight-ray star, then withdraws the inner rays while the ordinary rounded o outline appears. The simple timeline makes this transition at 480–800ms; optical uses 1120–1640ms. The completed pixel wordmark spells Phosphene with a normal, hollow o. The modern SVG treatment retains its star. The existing separate-star treatment and website identity are preserved.
 
 ## Integration contract
 
