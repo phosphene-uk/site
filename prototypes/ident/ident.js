@@ -1,6 +1,7 @@
 const GLYPHS = {"P": ["11110", "10001", "10001", "11110", "10000", "10000", "10000"], "h": ["10000", "10000", "10110", "11001", "10001", "10001", "10001"], "o": ["00000", "00000", "01110", "10001", "10001", "10001", "01110"], "s": ["00000", "00000", "01111", "10000", "01110", "00001", "11110"], "p": ["00000", "00000", "11110", "10001", "11110", "10000", "10000"], "e": ["00000", "00000", "01110", "10001", "11111", "10000", "01111"], "n": ["00000", "00000", "10110", "11001", "10001", "10001", "10001"]};
 
-const DURATION = 1000;
+let variant = 'optical';
+let duration = 2000;
 const controls = document.querySelector('.controls');
 const timeline = document.querySelector('#timeline');
 const time = document.querySelector('#time');
@@ -11,8 +12,9 @@ const status = document.querySelector('#status');
 const marks = [...document.querySelectorAll('.ident')];
 const canvas = document.querySelector('#pixel');
 const context = canvas.getContext('2d');
+const variants = [...document.querySelectorAll('input[name="variant"]')];
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
-let elapsed = DURATION;
+let elapsed = duration;
 let running = false;
 let request = null;
 let started = 0;
@@ -22,6 +24,56 @@ const clamp = value => Math.max(0, Math.min(1, value));
 const progress = (ms, start, end) => clamp((ms - start) / (end - start));
 const settle = value => 1 - (1 - value) ** 4;
 const reduced = () => still.checked || motionPreference.matches;
+const pulse = (ms, start, peak, end) => settle(progress(ms, start, peak)) * (1 - settle(progress(ms, peak, end)));
+const svgElement = (name, attributes = {}) => {
+  const node = document.createElementNS('http://www.w3.org/2000/svg', name);
+  for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, String(value));
+  return node;
+};
+
+// Optical layers are bounded to each mark, leaving the background perfectly still.
+const opticalMarks = marks.map((mark, index) => {
+  const rays = mark.querySelector('.rays');
+  const star = rays.parentElement;
+  const name = mark.querySelector('.ident-name');
+  const id = `optical-light-${index}`;
+  const defs = svgElement('defs');
+  const gradient = svgElement('radialGradient', { id });
+  for (const [offset, color, opacity] of [[0, '#f1efce', .65], [.12, '#eced9f', .35], [.36, '#8fe8df', .10], [1, '#8fe8df', 0]]) {
+    gradient.append(svgElement('stop', { offset, 'stop-color': color, 'stop-opacity': opacity }));
+  }
+  const revealId = `optical-reveal-${index}`;
+  const revealGradient = svgElement('linearGradient', { id: `${revealId}-light`, gradientUnits: 'userSpaceOnUse', x1: 0, x2: 60 });
+  revealGradient.append(svgElement('stop', { offset: 0, 'stop-color': '#000' }), svgElement('stop', { offset: 1, 'stop-color': '#fff' }));
+  const revealMask = svgElement('mask', { id: revealId, maskUnits: 'userSpaceOnUse', x: -50, y: -50, width: 620, height: 360 });
+  revealMask.append(svgElement('rect', { x: -50, y: -50, width: 620, height: 360, fill: `url(#${revealId}-light)` }));
+  defs.append(gradient, revealGradient, revealMask);
+  mark.prepend(defs);
+  const field = svgElement('circle', { r: 54, fill: `url(#${id})`, class: 'optical-layer' });
+  star.prepend(field);
+  const echoes = ['#8fe8df', '#c6a5ee'].map(color => {
+    const ring = svgElement('ellipse', { rx: 34, ry: 24, fill: 'none', stroke: color, 'stroke-width': .65, class: 'optical-layer' });
+    star.insertBefore(ring, rays);
+    return ring;
+  });
+  const ghostRays = ['#8fe8df', '#c6a5ee'].map(color => {
+    const ghost = rays.cloneNode(true);
+    ghost.setAttribute('class', 'optical-layer');
+    ghost.setAttribute('fill', 'none');
+    ghost.setAttribute('stroke', color);
+    ghost.setAttribute('stroke-width', '.8');
+    star.insertBefore(ghost, rays);
+    return ghost;
+  });
+  const ghostNames = ['#8fe8df', '#c6a5ee'].map(color => {
+    const ghost = name.cloneNode(true);
+    ghost.setAttribute('class', 'optical-layer');
+    ghost.style.fill = color;
+    mark.insertBefore(ghost, name);
+    return ghost;
+  });
+  return { revealId, revealGradient, viewWidth: mark.viewBox.baseVal.width, rays, name, seed: mark.querySelector('.seed'), field, echoes, ghostRays, ghostNames };
+});
 
 // Integer Bresenham lines avoid anti-aliased edges in the pixel study.
 function pixelLine(x0, y0, x1, y1) {
@@ -39,42 +91,95 @@ function pixelLine(x0, y0, x1, y1) {
 
 function drawPixel(ms) {
   if (!context) return;
-  const frame = Math.min(11, Math.floor(ms / DURATION * 11));
+  const frame = Math.min(11, Math.floor(ms / duration * 11));
   if (frame === pixelFrame) return;
   pixelFrame = frame;
-  const tick = frame / 11 * DURATION;
+  const tick = frame / 11 * duration;
+  const optical = variant === 'optical';
   context.fillStyle = '#162a40';
   context.fillRect(0, 0, 320, 200);
-  context.fillStyle = '#eced9f';
-  if (frame > 0) {
-    const radius = Math.round(16 * settle(progress(tick, 120, 640)));
-    for (let ray = 0; ray < 16; ray++) {
-      const angle = ray * Math.PI / 8;
-      pixelLine(217, 100, 217 + Math.round(Math.cos(angle) * radius), 100 + Math.round(Math.sin(angle) * radius));
+  const rayProgress = optical ? progress(tick, 650, 1250) : progress(tick, 120, 640);
+  const radius = Math.round(16 * settle(rayProgress));
+  const separation = optical ? Math.round(3 * (1 - settle(progress(tick, 700, 1500)))) : 0;
+  if (optical && tick > 0 && tick < 1000) {
+    const ring = Math.round(25 * (1 - settle(progress(tick, 150, 1050))) + 2);
+    for (const [offset, color] of [[-separation, '#8fe8df'], [separation, '#c6a5ee']]) {
+      context.fillStyle = color;
+      for (let i = 0; i < 32; i++) {
+        const a = i * Math.PI / 16;
+        context.fillRect(217 + offset + Math.round(Math.cos(a) * ring), 100 + Math.round(Math.sin(a) * ring * .7), 1, 1);
+      }
     }
   }
-  const reveal = Math.round(108 * settle(progress(tick, 390, 950)));
+  if (frame > 0 && (!optical || tick > 600)) {
+    const passes = separation ? [[-separation, '#8fe8df'], [separation, '#c6a5ee'], [0, '#eced9f']] : [[0, '#eced9f']];
+    for (const [offset, color] of passes) {
+      context.fillStyle = color;
+      for (let ray = 0; ray < 16; ray++) {
+        const angle = ray * Math.PI / 8;
+        pixelLine(217 + offset, 100, 217 + offset + Math.round(Math.cos(angle) * radius), 100 + Math.round(Math.sin(angle) * radius));
+      }
+    }
+  }
+  context.fillStyle = '#eced9f';
+  const reveal = Math.round(108 * settle(optical ? progress(tick, 1080, 1850) : progress(tick, 390, 950)));
   [...'Phosphene'].forEach((letter, index) => {
     GLYPHS[letter].forEach((row, y) => {
       [...row].forEach((bit, x) => {
-        if (bit === '1' && index * 12 + x * 2 < reveal) context.fillRect(92 + index * 12 + x * 2, 94 + y * 2, 2, 2);
+        const column = index * 12 + x * 2;
+        if (bit === '1' && (optical ? column >= 108 - reveal : column < reveal)) context.fillRect(92 + column, 94 + y * 2, 2, 2);
       });
     });
   });
 }
 
 function render(ms) {
-  elapsed = Math.max(0, Math.min(DURATION, ms));
-  const rays = settle(progress(elapsed, 120, 640));
-  const name = settle(progress(elapsed, 390, 950));
-  const seed = progress(elapsed, 20, 100) * (1 - progress(elapsed, 240, 620));
-  for (const mark of marks) {
-    mark.querySelector('.rays').style.strokeDasharray = '1';
-    mark.querySelector('.rays').style.strokeDashoffset = String(1 - rays);
-    mark.querySelector('.seed').style.opacity = String(seed);
-    const lettering = mark.querySelector('.ident-name');
-    lettering.style.opacity = String(progress(elapsed, 390, 650));
-    lettering.style.clipPath = `inset(0 ${(1 - name) * 100}% 0 0)`;
+  elapsed = Math.max(0, Math.min(duration, ms));
+  const optical = variant === 'optical';
+  const rays = settle(optical ? progress(elapsed, 650, 1250) : progress(elapsed, 120, 640));
+  const name = settle(optical ? progress(elapsed, 1080, 1850) : progress(elapsed, 390, 950));
+  const nameOpacity = optical ? progress(elapsed, 1080, 1650) : progress(elapsed, 390, 650);
+  const seed = optical ? pulse(elapsed, 380, 680, 1250) : progress(elapsed, 20, 100) * (1 - progress(elapsed, 240, 620));
+  const focus = settle(progress(elapsed, 160, 1100));
+  const afterimage = optical ? pulse(elapsed, 30, 320, 1150) : 0;
+  const fringe = optical ? pulse(elapsed, 560, 850, 1510) : 0;
+  const separation = 3.8 * (1 - settle(progress(elapsed, 600, 1480)));
+  const mask = optical ? `inset(0 0 0 ${(1 - name) * 100}%)` : `inset(0 ${(1 - name) * 100}% 0 0)`;
+  for (const part of opticalMarks) {
+    part.rays.style.strokeDasharray = '1';
+    part.rays.style.strokeDashoffset = String(1 - rays);
+    part.seed.style.opacity = String(seed);
+    part.name.style.opacity = String(nameOpacity);
+    const edge = (part.viewWidth + 100) * (1 - name) - 100;
+    part.revealGradient.setAttribute('x1', edge);
+    part.revealGradient.setAttribute('x2', edge + 60);
+    const opticalMask = optical && elapsed < 1850 ? `url(#${part.revealId})` : 'none';
+    part.name.style.mask = opticalMask;
+    part.name.style.clipPath = optical || name === 1 ? 'none' : mask;
+    part.name.style.filter = optical && elapsed < 1850 ? `blur(${2.2 * (1 - settle(progress(elapsed, 1100, 1850)))}px)` : 'none';
+    part.field.style.opacity = String(optical ? pulse(elapsed, 80, 580, 1600) * .8 : 0);
+    part.field.setAttribute('transform', `scale(${1.15 - focus * .72} ${.8 - focus * .37})`);
+    part.echoes.forEach((ring, index) => {
+      const sign = index ? 1 : -1;
+      ring.style.opacity = String(afterimage * .55);
+      ring.style.filter = `blur(${1.8 - focus * 1.2}px)`;
+      ring.setAttribute('transform', `translate(${sign * (5 - focus * 4)} ${sign * 1.5}) scale(${1.1 - focus * .84})`);
+    });
+    part.ghostRays.forEach((ghost, index) => {
+      ghost.style.opacity = String(fringe * .65);
+      ghost.style.strokeDasharray = '1';
+      ghost.style.strokeDashoffset = String(1 - rays);
+      ghost.style.filter = `blur(${(1 - rays) * 1.3}px)`;
+      ghost.setAttribute('transform', `translate(${(index ? 1 : -1) * separation} 0)`);
+    });
+    part.ghostNames.forEach((ghost, index) => {
+      const strength = optical ? pulse(elapsed, 1080, 1290, 1780) * .45 : 0;
+      ghost.style.opacity = String(strength);
+      ghost.style.mask = opticalMask;
+      ghost.style.clipPath = 'none';
+      ghost.style.filter = 'blur(.5px)';
+      ghost.setAttribute('transform', `translate(${(index ? 1 : -1) * 4 * (1 - settle(progress(elapsed, 1120, 1780)))} 0)`);
+    });
   }
   drawPixel(elapsed);
   timeline.value = String(Math.round(elapsed));
@@ -94,14 +199,14 @@ function tick(now) {
   request = null;
   if (!running) return;
   render(now - started);
-  if (elapsed >= DURATION) stop('Finished mark');
+  if (elapsed >= duration) stop('Finished mark');
   else request = requestAnimationFrame(tick);
 }
 
 function play(fromStart = false) {
-  if (reduced()) { render(DURATION); stop('Still version'); return; }
+  if (reduced()) { render(duration); stop('Still version'); return; }
   stop('Playing');
-  if (fromStart || elapsed >= DURATION) render(0);
+  if (fromStart || elapsed >= duration) render(0);
   running = true;
   pause.textContent = 'Pause';
   started = performance.now() - elapsed;
@@ -110,7 +215,7 @@ function play(fromStart = false) {
 
 function applyMotionPreference() {
   stop(reduced() ? 'Still version' : 'Finished mark');
-  render(DURATION);
+  render(duration);
   still.disabled = motionPreference.matches;
   still.checked = motionPreference.matches || still.checked;
   replay.disabled = reduced();
@@ -118,6 +223,17 @@ function applyMotionPreference() {
   timeline.disabled = reduced();
   if (motionPreference.matches) status.textContent = 'System: reduced motion';
 }
+
+variants.forEach(input => input.addEventListener('change', () => {
+  if (!input.checked) return;
+  stop('Finished mark');
+  variant = input.value;
+  duration = variant === 'optical' ? 2000 : 1000;
+  timeline.max = String(duration);
+  pixelFrame = -1;
+  if (reduced()) applyMotionPreference();
+  else play(true);
+}));
 
 replay.addEventListener('click', () => play(true));
 pause.addEventListener('click', () => running ? stop('Paused') : play());
@@ -134,7 +250,7 @@ window.addEventListener('pagehide', () => stop('Paused'));
 
 // The static SVG remains available if canvas is unavailable or scripts fail.
 if (context) {
-  drawPixel(DURATION);
+  drawPixel(duration);
   canvas.hidden = false;
   document.querySelector('.pixel-fallback').setAttribute('hidden', '');
 }
