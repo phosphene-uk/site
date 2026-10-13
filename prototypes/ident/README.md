@@ -44,6 +44,12 @@ SVG gradients, local blur and a moving luminance mask create the optical effect.
 - The pixel study uses a 320×200 buffer, 12 discrete frames, integer lines and an authored 5×7 lettering grid at 2× size. It is a visual study, not a claim that it runs on a particular classic machine. Font, palette, pixel aspect ratio and memory limits need adapting to the actual target. Native presentation should use integer scaling; the comparison board may fit the buffer into fractional CSS dimensions.
 - Reduced motion shows the finished mark immediately. The preview honours the system preference and also provides a manual still control. Static SVG marks remain visible without JavaScript.
 
+## Star as o · optional treatment
+
+The **Mark** choice compares **Separate star** with **Star as o**. The experiment keeps the o's advance width, hides its printed glyph and positions the radial mark using the loaded Lilita lettering. The complete name remains available to assistive technology. The wordmark is centred on both landscape and portrait screens, and the optical reveal radiates out from the star inside it.
+
+The pixel version uses eight rays within a nine-pixel diameter. At that size it can read as an asterisk; this is an explicit legibility study, not an approved replacement for every small logo. The existing separate-star treatment and website identity are preserved.
+
 ## Integration contract
 
 Keep the visual sequence separate from each application's launch machinery. A host can show the still mark immediately, play the sequence during genuine loading, interrupt it when ready or let a game player skip it. Never add waiting time to a tool solely to finish the animation. Hold or transition from the final frame into the title's own visual identity.
