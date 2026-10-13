@@ -62,3 +62,7 @@ Steve approved the CSS 3D Rachel prototype with a thicker spine, recessed bindin
 ## Public name
 
 On 2026-10-13 Steve approved using Phosphene alone: name and radial star, with no Studio suffix in the mark or website copy. Studio198x retains its own project name.
+
+## Ident approval
+
+On 2026-10-13 Steve chose the two-second optical ident: perceived light gathers into the radial star in the o position, then resolves into the ordinary o as the complete Phosphene wordmark appears. Use this ending at every size, including pixel rendering. The one-second simple sequence remains the compact alternative; reduced motion uses the completed wordmark. The approved preview is `prototypes/ident/preview.html`. Integration into individual titles is a separate task.

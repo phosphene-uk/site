@@ -1,6 +1,6 @@
 # Phosphene ident · motion study
 
-A point of light becomes the radial star; Phosphene appears. The finished mark holds. This is a review prototype, not an introduction installed in the website or any game.
+**Chosen direction:** Optical · Star → o, approved on 2026-10-13. Light gathers into the star inside the name, then resolves into the ordinary o as Phosphene appears. The finished mark holds. This is a review prototype, not an introduction installed in the website or any game.
 
 Open `preview.html` directly in a browser for the self-contained version, with fonts, styles and animation embedded. Rebuild it after editing with `python3 prototypes/ident/export-preview.py`.
 

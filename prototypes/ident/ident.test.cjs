@@ -19,8 +19,8 @@ class Element {
 const selectors = Object.fromEntries(['.controls','#timeline','#time','#replay','#pause','#still','#status','.pixel-fallback'].map(key => [key, new Element()]));
 const simple = new Element(); simple.value = 'simple';
 const optical = new Element(); optical.value = 'optical'; optical.checked = true;
-const beside=new Element(); beside.value='beside'; beside.checked=true;
-const letter=new Element(); letter.value='letter';
+const beside=new Element(); beside.value='beside'; beside.checked=false;
+const letter=new Element(); letter.value='letter'; letter.checked=true;
 const parts = Object.fromEntries(['.rays','.seed','.ident-name'].map(key => [key,new Element()]));
 parts['.rays'].parentElement = new Element();
 parts['.rays'].parentElement.setAttribute('transform','translate(449 94) scale(2.1)');
@@ -38,6 +38,11 @@ const click = key => selectors[key].handlers.click();
 function step(at) { now=at; const callbacks=[...frames.values()]; frames.clear(); callbacks.forEach(callback=>callback(at)); }
 function choose(input) { simple.checked=false; optical.checked=false; input.checked=true; input.handlers.change(); }
 function finalState() { return {starOpacity:parts['.rays'].parentElement.style.opacity,star:parts['.rays'].parentElement.getAttribute('transform'),letter:parts['.ident-name'].querySelector('.letter-o').style.opacity,x:parts['.ident-name'].getAttribute('x'),y:parts['.ident-name'].getAttribute('y'),pixels:JSON.stringify(pixels),name:{...parts['.ident-name'].style},rays:{...parts['.rays'].style},seed:{...parts['.seed'].style}}; }
+assert.equal(finalState().letter,'1');
+assert.equal(finalState().starOpacity,'0','The chosen default ends on the complete wordmark');
+selectors['#still'].checked=true; selectors['#still'].handlers.change();
+beside.checked=true; letter.checked=false; beside.handlers.change();
+selectors['#still'].checked=false; selectors['#still'].handlers.change();
 const opticalFinal=finalState();
 assert.equal(frames.size,0);
 click('#replay'); assert.equal(frames.size,1); step(320);
