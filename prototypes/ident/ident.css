@@ -1,0 +1,48 @@
+@font-face { font-family: Lilita; src: url('../../public/assets/fonts/LilitaOne-Regular.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: Akatab; src: url('../../public/assets/fonts/Akatab-Regular.woff2') format('woff2'); font-display: swap; }
+@font-face { font-family: Akatab; src: url('../../public/assets/fonts/Akatab-Bold.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+:root { color-scheme: dark; font: 17px/1.5 Akatab, sans-serif; background: #394e65; color: #f1efce; --citron: #eced9f; --ink: #162a40; --muted: #d6dfe3; scrollbar-color: #a3b1b8 #394e65; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 1480px; margin: auto; padding: 42px 48px 32px; }
+::selection { color: var(--ink); background: var(--citron); }
+:focus-visible { outline: 3px solid #ffb181; outline-offset: 5px; }
+[hidden] { display: none !important; }
+header { display: flex; justify-content: space-between; align-items: end; gap: 32px; margin-bottom: 30px; }
+h1 { font: clamp(38px, 5vw, 66px)/1 Lilita, sans-serif; letter-spacing: -.025em; color: var(--citron); margin: 0; }
+header p { max-width: 390px; margin: 0; color: var(--muted); }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px; padding: 16px 0; border-block: 1px solid #f1efce40; margin-bottom: 26px; }
+button { font: 700 16px Akatab, sans-serif; color: var(--ink); background: var(--citron); border: 1px solid var(--citron); border-radius: 3px; padding: 10px 20px; min-height: 44px; cursor: pointer; }
+button.secondary { background: transparent; color: #f1efce; border-color: #f1efce70; }
+button:hover { background: #f1efce; color: var(--ink); }
+button:disabled { opacity: .55; cursor: default; }
+.scrubber { display: flex; align-items: center; gap: 12px; flex: 1 1 220px; }
+input { accent-color: #ffb181; }
+input[type=range] { width: 100%; min-width: 80px; min-height: 44px; cursor: pointer; }
+output { min-width: 58px; font-variant-numeric: tabular-nums; }
+.still-control { display: flex; align-items: center; gap: 9px; min-height: 44px; cursor: pointer; }
+.still-control input { width: 18px; height: 18px; }
+.status { color: var(--muted); min-width: 130px; font-size: 14px; }
+.board { display: grid; grid-template-columns: 1fr 1fr .76fr; gap: 28px; align-items: start; }
+figure { margin: 0; min-width: 0; }
+.widescreen { grid-column: 1 / 3; }
+.portrait { grid-column: 3; grid-row: 1 / 3; }
+.stage { display: grid; place-items: center; position: relative; background: var(--ink); overflow: hidden; aspect-ratio: 16/9; }
+.portrait .stage { aspect-ratio: 9/16; }
+.classic .stage { aspect-ratio: 4/3; }
+.pixel .stage { aspect-ratio: 8/5; }
+.ident { width: 76%; max-height: 70%; color: var(--citron); overflow: visible; }
+.portrait .ident { width: 85%; }
+.ident text { font-family: Lilita, sans-serif; fill: currentColor; letter-spacing: -.025em; }
+.rays { fill: none; stroke: currentColor; stroke-width: .8; }
+.seed { fill: currentColor; opacity: 0; }
+canvas, .pixel-fallback { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
+figcaption { display: flex; justify-content: space-between; gap: 14px; padding-top: 11px; font-size: 14px; color: var(--muted); }
+figcaption strong { color: #f1efce; font-weight: 700; }
+.portrait p { font-size: 15px; color: var(--muted); margin: 22px 0 0; }
+footer { border-top: 1px solid #f1efce40; margin-top: 32px; padding-top: 20px; display: flex; justify-content: space-between; gap: 28px; color: var(--muted); font-size: 15px; }
+footer p { max-width: 65ch; margin: 0; }
+footer a { color: #ffb181; text-underline-offset: .25em; }
+@media (max-width: 850px) { main { padding: 28px 24px; } header { display: block; } header p { margin-top: 16px; } .board { gap: 24px; grid-template-columns: 1fr 1fr; } .widescreen { grid-column: 1; } .portrait { grid-column: 2; grid-row: 1 / 3; } .classic { grid-column: 1; } .pixel { grid-column: 1 / 3; max-width: 480px; width: 100%; } footer { display: block; } footer p + p { margin-top: 12px; } }
+@media (max-width: 520px) { main { padding: 26px 20px; } .board { grid-template-columns: 1fr; gap: 30px; } .board figure { grid-column: auto; grid-row: auto; } .portrait { max-width: 280px; width: 100%; justify-self: center; } .controls { gap: 10px 16px; } .scrubber { flex-basis: 100%; } .status { min-width: 0; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }
