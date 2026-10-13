@@ -44,11 +44,11 @@ SVG gradients, local blur and a moving luminance mask create the optical effect.
 - The pixel study uses a 320×200 buffer, 12 discrete frames, integer lines and an authored 5×7 lettering grid at 2× size. It is a visual study, not a claim that it runs on a particular classic machine. Font, palette, pixel aspect ratio and memory limits need adapting to the actual target. Native presentation should use integer scaling; the comparison board may fit the buffer into fractional CSS dimensions.
 - Reduced motion shows the finished mark immediately. The preview honours the system preference and also provides a manual still control. Static SVG marks remain visible without JavaScript.
 
-## Star as o · optional treatment
+## Star → o · integrated treatment
 
-The **Mark** choice compares **Separate star** with **Star as o**. The experiment keeps the o's advance width, hides its printed glyph and positions the radial mark using the loaded Lilita lettering. The complete name remains available to assistive technology. The wordmark is centred on both landscape and portrait screens, and the optical reveal radiates out from the star inside it.
+The **Mark** choice compares **Separate star** with **Star → o**. The experiment keeps the o's advance width, temporarily hides its printed glyph and positions the radial mark using the loaded Lilita lettering. The complete name remains available to assistive technology. The wordmark is centred on both landscape and portrait screens, and the optical reveal radiates out from the star inside it.
 
-The pixel version briefly opens into an eight-ray star, then withdraws the inner rays while the ordinary rounded o outline appears. The simple timeline makes this transition at 480–800ms; optical uses 1120–1640ms. The completed pixel wordmark spells Phosphene with a normal, hollow o. The modern SVG treatment retains its star. The existing separate-star treatment and website identity are preserved.
+The pixel version briefly opens into an eight-ray star, then withdraws the inner rays while the ordinary rounded o outline appears. The simple timeline makes this transition at 480–800ms; optical uses 1120–1640ms. The completed pixel wordmark spells Phosphene with a normal, hollow o. The modern SVG treatment follows the same timing: the inner rays withdraw, the star fades, and the actual Lilita o becomes fully visible. All sizes finish on the readable wordmark, including in still mode. The existing separate-star treatment and website identity are preserved.
 
 ## Integration contract
 

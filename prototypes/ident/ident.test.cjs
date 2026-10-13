@@ -37,7 +37,7 @@ vm.runInNewContext(fs.readFileSync(path.join(__dirname,'ident.js'),'utf8'), {doc
 const click = key => selectors[key].handlers.click();
 function step(at) { now=at; const callbacks=[...frames.values()]; frames.clear(); callbacks.forEach(callback=>callback(at)); }
 function choose(input) { simple.checked=false; optical.checked=false; input.checked=true; input.handlers.change(); }
-function finalState() { return {star:parts['.rays'].parentElement.getAttribute('transform'),letter:parts['.ident-name'].querySelector('.letter-o').style.opacity,x:parts['.ident-name'].getAttribute('x'),y:parts['.ident-name'].getAttribute('y'),pixels:JSON.stringify(pixels),name:{...parts['.ident-name'].style},rays:{...parts['.rays'].style},seed:{...parts['.seed'].style}}; }
+function finalState() { return {starOpacity:parts['.rays'].parentElement.style.opacity,star:parts['.rays'].parentElement.getAttribute('transform'),letter:parts['.ident-name'].querySelector('.letter-o').style.opacity,x:parts['.ident-name'].getAttribute('x'),y:parts['.ident-name'].getAttribute('y'),pixels:JSON.stringify(pixels),name:{...parts['.ident-name'].style},rays:{...parts['.rays'].style},seed:{...parts['.seed'].style}}; }
 const opticalFinal=finalState();
 assert.equal(frames.size,0);
 click('#replay'); assert.equal(frames.size,1); step(320);
@@ -58,7 +58,8 @@ click('#replay'); assert.equal(frames.size,1); selectors['#still'].checked=true;
 letter.checked=true; beside.checked=false; letter.handlers.change();
 const integratedSimple=finalState();
 assert.notEqual(integratedSimple.star,simpleFinal.star);
-assert.equal(integratedSimple.letter,'0');
+assert.equal(integratedSimple.letter,'1');
+assert.equal(integratedSimple.starOpacity,'0');
 assert.notEqual(integratedSimple.pixels,simpleFinal.pixels);
 // Compare rendered glyph pixels across treatments, independent of their drawing code.
 function region(draws, left, top, width, height) {
@@ -79,6 +80,14 @@ assert.deepEqual(settledO,normalO);
 assert.ok(settledO.length > 0);
 assert.equal(settledO.includes('4,4'),false,'The finished o has a hollow centre');
 choose(optical); assert.deepEqual(finalState(),integratedSimple);
+selectors['#still'].checked=false; selectors['#still'].handlers.change();
+click('#replay');
+const startTime=now;
+step(startTime+1350);
+assert.ok(Number(finalState().letter)>0 && Number(finalState().letter)<1);
+assert.ok(Number(finalState().starOpacity)>0 && Number(finalState().starOpacity)<1);
+step(startTime+2100); assert.deepEqual(finalState(),integratedSimple);
+selectors['#still'].checked=true; selectors['#still'].handlers.change();
 beside.checked=true; letter.checked=false; beside.handlers.change();
 assert.deepEqual(finalState(),opticalFinal);
-console.log('PASS: the pixel star settles into the normal hollow o; final states agree across animation variants; mode switching keeps one frame loop; pause, completion, visibility and reduced motion cancel work.');
+console.log('PASS: modern and pixel stars settle into the normal o; final states agree across animation variants; mode switching keeps one frame loop; pause, completion, visibility and reduced motion cancel work.');

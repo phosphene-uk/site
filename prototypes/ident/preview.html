@@ -62,7 +62,7 @@ footer a { color: #ffb181; text-underline-offset: .25em; }
 <header><h1>A light in the darkness.</h1><p>A fleeting afterimage. A light coming into focus.</p></header>
 <div class="controls" hidden>
 <fieldset class="variants"><legend>Animation</legend><label><input type="radio" name="variant" value="simple">Simple <small>1 s</small></label><label><input type="radio" name="variant" value="optical" checked>Optical <small>2 s</small></label></fieldset>
-<fieldset class="variants treatments"><legend>Mark</legend><label><input type="radio" name="treatment" value="beside" checked>Separate star</label><label><input type="radio" name="treatment" value="letter">Star as o</label></fieldset>
+<fieldset class="variants treatments"><legend>Mark</legend><label><input type="radio" name="treatment" value="beside" checked>Separate star</label><label><input type="radio" name="treatment" value="letter">Star → o</label></fieldset>
 <button id="replay" type="button">Replay</button><button id="pause" class="secondary" type="button">Play</button>
 <label class="scrubber" for="timeline"><span>Time</span><input id="timeline" type="range" min="0" max="2000" step="10" value="2000"><output id="time" for="timeline">2.00 s</output></label>
 <label class="still-control"><input id="still" type="checkbox">Still version</label><span id="status" class="status" role="status">Ready</span></div>
@@ -265,6 +265,8 @@ function render(ms) {
   const optical = variant === 'optical';
   const rays = settle(optical ? progress(elapsed, 650, 1250) : progress(elapsed, 120, 640));
   const name = settle(optical ? progress(elapsed, 1080, 1850) : progress(elapsed, 390, 950));
+  const letterMorph = treatment === 'letter' ? (optical ? progress(elapsed, 1120, 1640) : progress(elapsed, 480, 800)) : 0;
+  const letterOpacity = letterMorph * letterMorph * (3 - 2 * letterMorph);
   const nameOpacity = optical ? progress(elapsed, 1080, 1650) : progress(elapsed, 390, 650);
   const seed = optical ? pulse(elapsed, 380, 680, 1250) : progress(elapsed, 20, 100) * (1 - progress(elapsed, 240, 620));
   const focus = settle(progress(elapsed, 160, 1100));
@@ -273,8 +275,13 @@ function render(ms) {
   const separation = 3.8 * (1 - settle(progress(elapsed, 600, 1480)));
   const mask = optical ? `inset(0 0 0 ${(1 - name) * 100}%)` : `inset(0 ${(1 - name) * 100}% 0 0)`;
   for (const part of opticalMarks) {
-    part.rays.style.strokeDasharray = '1';
-    part.rays.style.strokeDashoffset = String(1 - rays);
+    part.star.style.opacity = String(1 - letterMorph);
+    for (const name of [part.name, ...part.ghostNames]) {
+      name.querySelector('.letter-o').style.opacity = treatment === 'letter' ? String(letterOpacity) : '1';
+    }
+    // The light clears the counter of the letter as its printed outline appears.
+    part.rays.style.strokeDasharray = letterMorph > 0 ? `${1 - letterMorph} 1` : '1';
+    part.rays.style.strokeDashoffset = String(letterMorph > 0 ? -letterMorph : 1 - rays);
     part.seed.style.opacity = String(seed);
     part.name.style.opacity = String(nameOpacity);
     const edge = (part.viewWidth + 100) * (1 - name) - 100;

@@ -190,6 +190,8 @@ function render(ms) {
   const optical = variant === 'optical';
   const rays = settle(optical ? progress(elapsed, 650, 1250) : progress(elapsed, 120, 640));
   const name = settle(optical ? progress(elapsed, 1080, 1850) : progress(elapsed, 390, 950));
+  const letterMorph = treatment === 'letter' ? (optical ? progress(elapsed, 1120, 1640) : progress(elapsed, 480, 800)) : 0;
+  const letterOpacity = letterMorph * letterMorph * (3 - 2 * letterMorph);
   const nameOpacity = optical ? progress(elapsed, 1080, 1650) : progress(elapsed, 390, 650);
   const seed = optical ? pulse(elapsed, 380, 680, 1250) : progress(elapsed, 20, 100) * (1 - progress(elapsed, 240, 620));
   const focus = settle(progress(elapsed, 160, 1100));
@@ -198,8 +200,13 @@ function render(ms) {
   const separation = 3.8 * (1 - settle(progress(elapsed, 600, 1480)));
   const mask = optical ? `inset(0 0 0 ${(1 - name) * 100}%)` : `inset(0 ${(1 - name) * 100}% 0 0)`;
   for (const part of opticalMarks) {
-    part.rays.style.strokeDasharray = '1';
-    part.rays.style.strokeDashoffset = String(1 - rays);
+    part.star.style.opacity = String(1 - letterMorph);
+    for (const name of [part.name, ...part.ghostNames]) {
+      name.querySelector('.letter-o').style.opacity = treatment === 'letter' ? String(letterOpacity) : '1';
+    }
+    // The light clears the counter of the letter as its printed outline appears.
+    part.rays.style.strokeDasharray = letterMorph > 0 ? `${1 - letterMorph} 1` : '1';
+    part.rays.style.strokeDashoffset = String(letterMorph > 0 ? -letterMorph : 1 - rays);
     part.seed.style.opacity = String(seed);
     part.name.style.opacity = String(nameOpacity);
     const edge = (part.viewWidth + 100) * (1 - name) - 100;
