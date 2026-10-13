@@ -1,5 +1,5 @@
 ---
-name: Phosphene Studio
+name: Phosphene
 description: Software editions with restrained Studio notebook details.
 colors:
   slate: "#394e65"
@@ -42,12 +42,6 @@ typography:
     fontSize: "15px"
     fontWeight: 400
     lineHeight: 1.5
-  studio-label:
-    fontFamily: "Akatab, sans-serif"
-    fontSize: "11px"
-    fontWeight: 400
-    lineHeight: 1.5
-    letterSpacing: ".24em"
   maker-note:
     fontFamily: "Caveat, cursive"
     fontSize: "28px"
@@ -99,7 +93,7 @@ components:
     padding: "26px 30px 30px"
 ---
 
-# Design System: Phosphene Studio
+# Design System: Phosphene
 
 ## Overview
 
@@ -156,7 +150,6 @@ Lilita supplies the rounded studio voice; Akatab keeps project information strai
 - **Title:** the readable project name below each object. The bold weight is backed by the supplied Akatab bold file.
 - **Body:** project descriptions and the base interface text. Introduction text uses (19px), then (17px) at narrower widths.
 - **Label:** project categories. Captions use (13px); legal and artwork attribution use (12px).
-- **Studio label:** the uppercase word below the radial imprint stays (11px) at every breakpoint; its tracking changes from (.24em) to (.18em) at (620px).
 - **Maker note / notebook heading:** handwritten accents. The masthead note rotates (-4deg); notebook headings remain level.
 
 **The Readable Title Rule.** Every decorative edition has a readable project title and category outside its 3D scene. Use genuine SVG wordmarks for 198x cover, spine and insert lettering; do not recreate those logos with the display font.
@@ -223,7 +216,7 @@ Notebook content uses a top rule, clear body text and a handwritten heading. Rea
 
 ### Identity and imagery
 
-The Phosphene wordmark is live Lilita text paired with the radial studio mark. The 198x SVG wordmarks are authentic sibling assets; retain their artwork. Edition illustrations in `public/assets/editions/` are illustrative studio artwork, while `public/assets/captures/` contains real prototype captures. The footer states this distinction. Asset provenance must accompany shipping rasters.
+The Phosphene wordmark is live Lilita text paired with the radial star, without a Studio suffix. The 198x SVG wordmarks are authentic sibling assets; retain their artwork. Edition illustrations in `public/assets/editions/` are illustrative studio artwork, while `public/assets/captures/` contains real prototype captures. The footer states this distinction. Asset provenance must accompany shipping rasters.
 
 The page is static HTML, CSS and progressively enhanced JavaScript, with self-hosted fonts. It has no build step or package dependencies. Preserve native content access, project links, contact and legal attribution when extending the design.
 

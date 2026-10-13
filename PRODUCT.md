@@ -16,7 +16,7 @@ A studio showcase that makes people curious about the work and leads them into t
 
 ## Positioning
 
-Phosphene Studio is where Steve Hill builds games, emulation tools, teaching material for classic machines and an experimental operating system. The existing site's description is “Made carefully, and mostly for the love of it.”
+Phosphene is where Steve Hill builds games, emulation tools, teaching material for classic machines and an experimental operating system. The existing site's description is “Made carefully, and mostly for the love of it.”
 
 ## Capabilities and Constraints
 
@@ -39,7 +39,7 @@ Phosphene Studio is where Steve Hill builds games, emulation tools, teaching mat
 - Existing page and live `https://phosphene.uk/` inspected on 2026-10-13.
 - Original site's project inventory: Rachel, Chaotic Tanx, Code198x, Emu198x and FreshOS. This was incomplete: the catalogue review in `.impeccable/project-catalogue.md` also covers Asm198x, Isa198x, Cat198x, Build198x, Format198x, Debug198x and Play198x, plus the deferred Forge198x and unstarted Studio198x.
 - Current public contact: `hello@phosphene.uk`.
-- Existing attribution: Steve Hill, trading as Phosphene Studio.
+- Existing attribution: Steve Hill, trading as Phosphene.
 - The working tree contains locally sourced prototype captures, authentic 198x wordmarks, self-hosted fonts and generated illustrative artwork with provenance. Status evidence is recorded in the project catalogue.
 - Steve approved showing four unpublished prototypes in a dedicated Experiments section: Please Use the Stairs, Haunt Planning, Elevated Stunt Racing and Bowl Knockout. Use their actual captures with explicit prototype status. No public downloads or release dates have been agreed.
 - Prototype source documentation and inspected captures are recorded in `.impeccable/experimental-games-review.md`.
@@ -58,3 +58,7 @@ Steve approved including all 18 projects on 2026-10-13. Use 16 full editions, in
 ## Edition construction approval
 
 Steve approved the CSS 3D Rachel prototype with a thicker spine, recessed binding groove and raised cover lip, then approved applying it to the complete collection. Keep illustration flat, titles live (or authentic SVG wordmarks), and project notes readable outside the transformed object.
+
+## Public name
+
+On 2026-10-13 Steve approved using Phosphene alone: name and radial star, with no Studio suffix in the mark or website copy. Studio198x retains its own project name.

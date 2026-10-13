@@ -1,6 +1,6 @@
 # phosphene.uk
 
-The Phosphene Studio showcase, deployed to Cloudflare Pages from `public/`.
+The Phosphene showcase, deployed to Cloudflare Pages from `public/`.
 
 - `public/index.html` — the complete project catalogue and native edition disclosures
 - `public/styles.css` — identity, responsive shelves and CSS 3D binding
@@ -15,4 +15,4 @@ For a local preview, run `python3 -m http.server 8000 --directory public` and op
 
 To add an edition, copy a sibling `article.edition`, give it a unique project ID and accessible title, and supply a flat transparent illustration. CSS provides the physical cover and spine. Keep unpublished and planned status explicit; planned work has no launch link. Preserve the source and generation prompt in the asset provenance sidecar.
 
-Steve Hill, trading as Phosphene Studio.
+Steve Hill, trading as Phosphene.
