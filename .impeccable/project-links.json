@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Rachel",
+    "url": "https://rachel.stevehill.xyz",
+    "page_title": "Rachel: Tactical Card Game",
+    "name_present": true
+  },
+  {
+    "name": "Chaotic Tanx",
+    "url": "https://chaotictanx.stevehill.xyz",
+    "page_title": "Chaotic Tanx - Explosive Artillery Warfare",
+    "name_present": true
+  },
+  {
+    "name": "Code198x",
+    "url": "https://code198x.com",
+    "page_title": "Build real games | Code Like It&#39;s 198x",
+    "name_present": true
+  },
+  {
+    "name": "Emu198x",
+    "url": "https://emu198x.github.io",
+    "page_title": "Emu198x",
+    "name_present": true
+  },
+  {
+    "name": "Asm198x",
+    "url": "https://asm198x.github.io",
+    "page_title": "Asm198x",
+    "name_present": true
+  },
+  {
+    "name": "Cat198x",
+    "url": "https://cat198x.github.io",
+    "page_title": "Cat198x",
+    "name_present": true
+  },
+  {
+    "name": "Build198x",
+    "url": "https://build198x.github.io",
+    "page_title": "Build198x",
+    "name_present": true
+  },
+  {
+    "name": "Format198x",
+    "url": "https://format198x.github.io",
+    "page_title": "Format198x",
+    "name_present": true
+  },
+  {
+    "name": "Debug198x",
+    "url": "https://debug198x.github.io",
+    "page_title": "Debug198x",
+    "name_present": true
+  },
+  {
+    "name": "Play198x",
+    "url": "https://play198x.github.io",
+    "page_title": "Play198x",
+    "name_present": true
+  },
+  {
+    "name": "Isa198x",
+    "url": "https://github.com/isa198x",
+    "page_title": "isa198x \u00b7 GitHub",
+    "name_present": true
+  },
+  {
+    "name": "FreshOS",
+    "url": "https://github.com/fresh-os/freshos",
+    "page_title": "GitHub - fresh-os/freshos: A microkernel operating system in Rust, targeting x86_64 / UEFI. \u00b7 GitHub",
+    "name_present": true
+  }
+]

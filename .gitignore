@@ -1,0 +1,10 @@
+# Local design exploration and generated source artwork; shipping assets are in public/.
+/assets/
+.impeccable/*
+!.impeccable/design.json
+!.impeccable/config.json
+!.impeccable/surfaces/
+!.impeccable/project-catalogue.md
+!.impeccable/catalogue-content.json
+!.impeccable/experimental-games-review.md
+!.impeccable/project-links.json

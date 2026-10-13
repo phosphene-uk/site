@@ -1,0 +1,187 @@
+[
+  {
+    "id": "rachel",
+    "name": "Rachel",
+    "group": "Games & other work",
+    "category": "Card game",
+    "description": "A tactical card game.",
+    "url": "https://rachel.stevehill.xyz",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "chaotic-tanx",
+    "name": "Chaotic Tanx",
+    "group": "Games & other work",
+    "category": "Tank battler",
+    "description": "An artillery tank battler.",
+    "url": "https://chaotictanx.stevehill.xyz",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "freshos",
+    "name": "FreshOS",
+    "group": "Games & other work",
+    "category": "Operating system",
+    "description": "An experimental microkernel operating system, built in Rust.",
+    "url": "https://github.com/fresh-os/freshos",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "code198x",
+    "name": "Code198x",
+    "group": "198x family",
+    "category": "Learn to make games",
+    "description": "Learn to write games for classic machines, lesson by lesson.",
+    "url": "https://code198x.com",
+    "planned": false,
+    "prototype": false,
+    "accessibleName": "Code Like It's 198x"
+  },
+  {
+    "id": "emu198x",
+    "name": "Emu198x",
+    "group": "198x family",
+    "category": "Multi-system emulator",
+    "description": "Explore classic computers and consoles through emulation.",
+    "url": "https://emu198x.github.io",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "asm198x",
+    "name": "Asm198x",
+    "group": "198x family",
+    "category": "Assemblers & disassemblers",
+    "description": "Build programs for retro CPUs with source-compatible assemblers and disassemblers.",
+    "url": "https://asm198x.github.io",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "play198x",
+    "name": "Play198x",
+    "group": "198x family",
+    "category": "Retro media player",
+    "description": "Open vintage images and music in your browser, using your own files.",
+    "url": "https://play198x.github.io",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "cat198x",
+    "name": "Cat198x",
+    "group": "198x family",
+    "category": "Collection tools",
+    "description": "Catalogue, verify and organise retro software and media collections.",
+    "url": "https://cat198x.github.io",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "build198x",
+    "name": "Build198x",
+    "group": "198x family",
+    "category": "Asset & media tools",
+    "description": "Convert graphics, pack assets and prepare media for classic machines.",
+    "url": "https://build198x.github.io",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "isa198x",
+    "name": "Isa198x",
+    "group": "198x family",
+    "category": "Instruction-set specifications",
+    "description": "Executable CPU instruction-set specifications and the disassemblers built on them.",
+    "url": "https://github.com/isa198x",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "format198x",
+    "name": "Format198x",
+    "group": "198x family",
+    "category": "Disk & media libraries",
+    "description": "Reusable libraries for reading and writing retro disk and media formats.",
+    "url": "https://format198x.github.io",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "debug198x",
+    "name": "Debug198x",
+    "group": "198x family",
+    "category": "Debug information format",
+    "description": "Connect assembled code with source lines, symbols and addresses through a shared format.",
+    "url": "https://debug198x.github.io",
+    "planned": false,
+    "prototype": false
+  },
+  {
+    "id": "forge198x",
+    "name": "Forge198x",
+    "group": "198x family",
+    "category": "Planned \u00b7 deferred",
+    "description": "A future workbench for writing, assembling, running and debugging retro code.",
+    "url": null,
+    "planned": true,
+    "prototype": false
+  },
+  {
+    "id": "studio198x",
+    "name": "Studio198x",
+    "group": "198x family",
+    "category": "Planned \u00b7 not started",
+    "description": "Future tools for making graphics, music, sound effects and other media.",
+    "url": null,
+    "planned": true,
+    "prototype": false
+  },
+  {
+    "id": "please-use-the-stairs",
+    "name": "Please Use the Stairs",
+    "group": "Experiments",
+    "category": "Unpublished prototype",
+    "description": "Guide six people down three floors while sharing power between two stair sections.",
+    "url": null,
+    "planned": false,
+    "prototype": true,
+    "capture": "assets/captures/please-use-the-stairs.webp"
+  },
+  {
+    "id": "haunt-planning",
+    "name": "Haunt Planning",
+    "group": "Experiments",
+    "category": "Unpublished prototype",
+    "description": "Possess household objects and adapt your scares to different visitors.",
+    "url": null,
+    "planned": false,
+    "prototype": true,
+    "capture": "assets/captures/haunt-planning.webp"
+  },
+  {
+    "id": "elevated-stunt-racing",
+    "name": "Elevated Stunt Racing",
+    "group": "Experiments",
+    "category": "Unpublished prototype",
+    "description": "Drive exposed elevated tracks with boost and risky landings.",
+    "url": null,
+    "planned": false,
+    "prototype": true,
+    "capture": "assets/captures/elevated-stunt-racing.webp"
+  },
+  {
+    "id": "bowl-knockout",
+    "name": "Bowl Knockout",
+    "group": "Experiments",
+    "category": "Unpublished prototype",
+    "description": "Car combat in a bowl, with elastic tethers.",
+    "url": null,
+    "planned": false,
+    "prototype": true,
+    "capture": "assets/captures/bowl-knockout.webp"
+  }
+]

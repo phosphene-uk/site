@@ -1,163 +1,503 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Phosphene Studio</title>
-<meta name="description" content="Phosphene Studio — where Steve Hill builds things: strategy games, a retro emulator, a school for old-machine game-dev, and the odd operating system.">
-<meta property="og:title" content="Phosphene Studio">
-<meta property="og:description" content="Where Steve Hill builds things — games, a retro emulator, and work made for the love of it.">
-<meta property="og:type" content="website">
-<meta name="theme-color" content="#0a0a0a">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230a0a0a'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%23ff9e2c' opacity='0.35'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23ffb454'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Space+Mono&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --amber:#ffb454;
-    --amber-deep:#ff9e2c;
-    --black:#0a0a0a;
-    --cream:#e9e3d6;
-    --muted:#8a8174;
-    --line:rgba(255,255,255,.08);
-    --sans:"Inter",system-ui,-apple-system,sans-serif;
-    --serif:"Newsreader",Georgia,"Times New Roman",serif;
-    --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html{-webkit-text-size-adjust:100%}
-  body{
-    font-family:var(--sans);
-    color:var(--cream);
-    background:radial-gradient(120% 90% at 50% 0%,#16130f 0%,var(--black) 60%);
-    background-attachment:fixed;
-    min-height:100svh;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-    line-height:1.5;
-  }
-  .page{max-width:40rem;margin:0 auto;padding:clamp(56px,10vw,104px) 28px 64px}
-
-  /* wordmark — the agreed lockup */
-  .lock{display:inline-block;text-align:left}
-  .mark{
-    font-family:var(--sans);font-weight:400;letter-spacing:-.02em;line-height:.95;
-    font-size:clamp(42px,9vw,72px);
-    color:var(--amber);
-    text-shadow:0 0 .02em var(--amber),0 0 .22em rgba(255,180,84,.5),0 0 .85em rgba(255,150,40,.28);
-  }
-  .sub{
-    font-family:var(--mono);font-weight:400;font-size:clamp(11px,2.2vw,13px);
-    letter-spacing:.42em;text-transform:uppercase;
-    display:block;text-align:right;margin-right:-.42em;margin-top:-5px;
-    color:#a98f63;text-shadow:0 0 .5em rgba(255,160,60,.22);
-  }
-
-  .intro{
-    font-family:var(--serif);font-size:clamp(18px,3.4vw,21px);line-height:1.55;
-    color:#d9d2c4;margin-top:34px;max-width:34rem;text-wrap:pretty;
-  }
-  .intro .em{color:var(--cream)}
-
-  section{margin-top:56px}
-  .label{
-    font-family:var(--mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--muted);margin-bottom:6px;
-  }
-
-  .works{list-style:none}
-  .work{padding:22px 0;border-top:1px solid var(--line)}
-  .work-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-  .work-name{
-    font-family:var(--sans);font-weight:500;font-size:20px;letter-spacing:-.01em;
-    color:var(--cream);text-decoration:none;display:inline-flex;align-items:baseline;gap:.4em;
-  }
-  a.work-name{color:var(--amber);transition:color .18s ease}
-  a.work-name .arrow{font-size:14px;transition:transform .18s ease;display:inline-block}
-  a.work-name:hover,a.work-name:focus-visible{color:#ffd093}
-  a.work-name:hover .arrow,a.work-name:focus-visible .arrow{transform:translate(2px,-2px)}
-  .tag{
-    font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:3px 9px;
-    position:relative;top:-2px;
-  }
-  .work-desc{font-family:var(--serif);font-size:17px;line-height:1.55;color:#c4bcad;margin-top:7px;max-width:34rem}
-
-  .contact{margin-top:56px}
-  .contact a{
-    font-family:var(--mono);font-size:14px;color:var(--amber);text-decoration:none;
-    border-bottom:1px solid rgba(255,180,84,.35);padding-bottom:2px;transition:border-color .2s ease;
-  }
-  .contact a:hover,.contact a:focus-visible{border-color:var(--amber)}
-
-  footer{margin-top:64px;padding-top:26px;border-top:1px solid var(--line)}
-  .def{font-family:var(--serif);font-size:14px;line-height:1.5;color:#b6ae9f;max-width:32rem}
-  .def .term{font-style:italic;color:var(--amber)}
-  .def .ipa{font-family:var(--mono);font-style:normal;color:var(--muted);font-size:12px;margin-left:8px}
-  .legal{font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:#5f574b;margin-top:16px}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phosphene Studio — games, tools & experiments</title>
+  <meta name="description" content="Games, tools and experiments by Steve Hill. Explore the Phosphene collection: card games, classic machines, creative tools and work in progress.">
+  <meta property="og:title" content="Phosphene Studio">
+  <meta property="og:description" content="Games, tools and experiments. Made carefully, and mostly for the love of it.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://phosphene.uk/">
+  <meta name="theme-color" content="#394e65">
+  <link rel="canonical" href="https://phosphene.uk/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/LilitaOne-Regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script src="site.js" defer></script>
 </head>
 <body>
+  <a class="skip" href="#collection">Skip to the collection</a>
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+    <symbol id="studio-star" viewBox="0 0 32 32"><g fill="none" stroke="currentColor" stroke-width=".8"><path d="M16 0v32M0 16h32M4.686 4.686l22.628 22.628M4.686 27.314L27.314 4.686M9.877 1.218l12.246 29.564M1.218 9.877l29.564 12.246M1.218 22.123L30.782 9.877M9.877 30.782L22.123 1.218"/></g></symbol>
+    <symbol id="arrow" viewBox="0 0 32 32"><path d="M5 16h21M18 8l8 8-8 8"/></symbol>
+  </defs></svg>
   <div class="page">
-    <header>
-      <div class="lock">
-        <div class="mark">phosphene</div>
-        <div class="sub">studio</div>
-      </div>
-      <p class="intro">Where <span class="em">Steve Hill</span> builds things — strategy games, a cycle-accurate emulator, a school for writing games on old machines, and the odd operating system. Made carefully, and mostly for the love of it.</p>
+    <header class="masthead">
+      <div><div class="brand"><h1>Phosphene</h1><span class="studio-mark"><svg aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><span>Studio</span></span></div><p class="intro">Games, tools and experiments by Steve Hill.</p></div>
+      <p class="maker-note">Made carefully,<br>and mostly for the<br>love of it.</p>
     </header>
-
-    <main>
-      <section aria-labelledby="games">
-        <h2 class="label" id="games">Games</h2>
-        <ul class="works">
-          <li class="work">
-            <div class="work-head">
-              <a class="work-name" href="https://rachel.stevehill.xyz" target="_blank" rel="noopener">Rachel <span class="arrow" aria-hidden="true">↗</span></a>
-            </div>
-            <p class="work-desc">A strategic card game. iOS today, with a Go server behind it; vintage console and home-computer clients on the way, once Emu198x can carry the netcode.</p>
-          </li>
-          <li class="work">
-            <div class="work-head">
-              <a class="work-name" href="https://chaotictanx.stevehill.xyz" target="_blank" rel="noopener">Chaotic Tanx <span class="arrow" aria-hidden="true">↗</span></a>
-            </div>
-            <p class="work-desc">An artillery tank-battler.</p>
-          </li>
-        </ul>
-      </section>
-
-      <section aria-labelledby="projects">
-        <h2 class="label" id="projects">Projects</h2>
-        <ul class="works">
-          <li class="work">
-            <div class="work-head">
-              <a class="work-name" href="https://code198x.com" target="_blank" rel="noopener">Code198x <span class="arrow" aria-hidden="true">↗</span></a>
-            </div>
-            <p class="work-desc">Learn to write games for the classic machines, lesson by lesson.</p>
-          </li>
-          <li class="work">
-            <div class="work-head">
-              <a class="work-name" href="https://github.com/emu198x/emu198x" target="_blank" rel="noopener">Emu198x <span class="arrow" aria-hidden="true">↗</span></a>
-            </div>
-            <p class="work-desc">A cycle-accurate multi-system emulator — and the engine that&rsquo;ll give Rachel its retro multiplayer.</p>
-          </li>
-          <li class="work">
-            <div class="work-head">
-              <a class="work-name" href="https://github.com/fresh-os/freshos" target="_blank" rel="noopener">FreshOS <span class="arrow" aria-hidden="true">↗</span></a>
-            </div>
-            <p class="work-desc">A microkernel operating system, built for the love of it.</p>
-          </li>
-        </ul>
-      </section>
-
-      <p class="contact"><a href="mailto:hello@phosphene.uk">hello@phosphene.uk</a></p>
+    <div class="collection-nav">
+      <nav class="fallback-nav" aria-label="Collection"><a href="#games">Games & other work</a><a href="#family">198x family</a><a href="#experiments">Experiments</a></nav>
+      <div class="filters" data-filters role="group" aria-label="Filter the collection" hidden>
+        <button type="button" data-filter="all" aria-pressed="true" aria-controls="collection">All work</button>
+        <button type="button" data-filter="games" aria-pressed="false" aria-controls="collection">Games & other work</button>
+        <button type="button" data-filter="family" aria-pressed="false" aria-controls="collection">198x family</button>
+        <button type="button" data-filter="experiments" aria-pressed="false" aria-controls="collection">Experiments</button>
+      </div>
+      <label class="motion-control" hidden><input type="checkbox" id="less-motion"> Less motion</label>
+      <p class="visually-hidden" id="filter-status" role="status">18 projects shown. All work.</p>
+    </div>
+    <main id="collection" tabindex="-1">
+<section class="shelf" id="games" data-shelf aria-labelledby="games-heading"><h2 class="visually-hidden" id="games-heading">Games & other work</h2><div class="editions">
+      <article class="edition" id="rachel" data-project data-group="games">
+        <h3 class="visually-hidden">Rachel</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><span class="spine-title">Rachel</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><span class="insert-title">Rachel</span><span class="insert-note">Card game</span></span></span>
+                <span class="lid">
+                  <span class="face front"><span class="cover-title">Rachel</span><img class="cover-art" src="assets/editions/rachel.webp" alt="" width="768" height="768" fetchpriority="high" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Rachel</span>
+            <span class="project-category">Card game</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>A tactical card game.</p>
+            <a href="https://rachel.stevehill.xyz">Explore Rachel <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="chaotic-tanx" data-project data-group="games">
+        <h3 class="visually-hidden">Chaotic Tanx</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><span class="spine-title">Chaotic Tanx</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><span class="insert-title">Chaotic Tanx</span><span class="insert-note">Tank battler</span></span></span>
+                <span class="lid">
+                  <span class="face front"><span class="cover-title">Chaotic Tanx</span><img class="cover-art" src="assets/editions/chaotic-tanx.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Chaotic Tanx</span>
+            <span class="project-category">Tank battler</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>An artillery tank battler.</p>
+            <a href="https://chaotictanx.stevehill.xyz">Explore Chaotic Tanx <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="freshos" data-project data-group="games">
+        <h3 class="visually-hidden">FreshOS</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><span class="spine-title">FreshOS</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><span class="insert-title">FreshOS</span><span class="insert-note">Operating system</span></span></span>
+                <span class="lid">
+                  <span class="face front"><span class="cover-title">FreshOS</span><img class="cover-art" src="assets/editions/freshos.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">FreshOS</span>
+            <span class="project-category">Operating system</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>An experimental microkernel operating system, built in Rust.</p>
+            <a href="https://github.com/fresh-os/freshos">FreshOS on GitHub <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+</div></section>
+<section class="shelf" id="family" data-shelf aria-labelledby="family-heading"><div class="shelf-heading"><h2 id="family-heading">The 198x family</h2><p>Classic machines. New things to make with them.</p></div><div class="editions">
+      <article class="edition" id="code198x" data-project data-group="family">
+        <h3 class="visually-hidden">Code Like It&#x27;s 198x</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><img class="spine-logo" src="assets/wordmarks/code198x.svg" alt="" width="175" height="25"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><img class="insert-logo" src="assets/wordmarks/code198x.svg" alt="" width="180" height="42"><span class="insert-note">Learn to make games</span></span></span>
+                <span class="lid">
+                  <span class="face front"><img class="cover-logo" src="assets/wordmarks/code198x.svg" alt="" width="240" height="48"><img class="cover-art" src="assets/editions/code198x.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Code198x</span>
+            <span class="project-category">Learn to make games</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>Learn to write games for classic machines, lesson by lesson.</p>
+            <a href="https://code198x.com">Explore Code198x <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="emu198x" data-project data-group="family">
+        <h3 class="visually-hidden">Emu198x</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><img class="spine-logo" src="assets/wordmarks/emu198x.svg" alt="" width="175" height="25"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><img class="insert-logo" src="assets/wordmarks/emu198x.svg" alt="" width="180" height="42"><span class="insert-note">Multi-system emulator</span></span></span>
+                <span class="lid">
+                  <span class="face front"><img class="cover-logo" src="assets/wordmarks/emu198x.svg" alt="" width="240" height="48"><img class="cover-art" src="assets/editions/emu198x.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Emu198x</span>
+            <span class="project-category">Multi-system emulator</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>Explore classic computers and consoles through emulation.</p>
+            <a href="https://emu198x.github.io">Explore Emu198x <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="asm198x" data-project data-group="family">
+        <h3 class="visually-hidden">Asm198x</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><img class="spine-logo" src="assets/wordmarks/asm198x.svg" alt="" width="175" height="25"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><img class="insert-logo" src="assets/wordmarks/asm198x.svg" alt="" width="180" height="42"><span class="insert-note">Assemblers &amp; disassemblers</span></span></span>
+                <span class="lid">
+                  <span class="face front"><img class="cover-logo" src="assets/wordmarks/asm198x.svg" alt="" width="240" height="48"><img class="cover-art" src="assets/editions/asm198x.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Asm198x</span>
+            <span class="project-category">Assemblers &amp; disassemblers</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>Build programs for retro CPUs with source-compatible assemblers and disassemblers.</p>
+            <a href="https://asm198x.github.io">Explore Asm198x <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="play198x" data-project data-group="family">
+        <h3 class="visually-hidden">Play198x</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><img class="spine-logo" src="assets/wordmarks/play198x.svg" alt="" width="175" height="25"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><img class="insert-logo" src="assets/wordmarks/play198x.svg" alt="" width="180" height="42"><span class="insert-note">Retro media player</span></span></span>
+                <span class="lid">
+                  <span class="face front"><img class="cover-logo" src="assets/wordmarks/play198x.svg" alt="" width="240" height="48"><img class="cover-art" src="assets/editions/play198x.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Play198x</span>
+            <span class="project-category">Retro media player</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>Open vintage images and music in your browser, using your own files.</p>
+            <a href="https://play198x.github.io">Explore Play198x <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="cat198x" data-project data-group="family">
+        <h3 class="visually-hidden">Cat198x</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><img class="spine-logo" src="assets/wordmarks/cat198x.svg" alt="" width="175" height="25"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><img class="insert-logo" src="assets/wordmarks/cat198x.svg" alt="" width="180" height="42"><span class="insert-note">Collection tools</span></span></span>
+                <span class="lid">
+                  <span class="face front"><img class="cover-logo" src="assets/wordmarks/cat198x.svg" alt="" width="240" height="48"><img class="cover-art" src="assets/editions/cat198x.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Cat198x</span>
+            <span class="project-category">Collection tools</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>Catalogue, verify and organise retro software and media collections.</p>
+            <a href="https://cat198x.github.io">Explore Cat198x <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="build198x" data-project data-group="family">
+        <h3 class="visually-hidden">Build198x</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><img class="spine-logo" src="assets/wordmarks/build198x.svg" alt="" width="175" height="25"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><img class="insert-logo" src="assets/wordmarks/build198x.svg" alt="" width="180" height="42"><span class="insert-note">Asset &amp; media tools</span></span></span>
+                <span class="lid">
+                  <span class="face front"><img class="cover-logo" src="assets/wordmarks/build198x.svg" alt="" width="240" height="48"><img class="cover-art" src="assets/editions/build198x.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Build198x</span>
+            <span class="project-category">Asset &amp; media tools</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>Convert graphics, pack assets and prepare media for classic machines.</p>
+            <a href="https://build198x.github.io">Explore Build198x <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="isa198x" data-project data-group="family">
+        <h3 class="visually-hidden">Isa198x</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><img class="spine-logo" src="assets/wordmarks/isa198x.svg" alt="" width="175" height="25"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><img class="insert-logo" src="assets/wordmarks/isa198x.svg" alt="" width="180" height="42"><span class="insert-note">Instruction-set specifications</span></span></span>
+                <span class="lid">
+                  <span class="face front"><img class="cover-logo" src="assets/wordmarks/isa198x.svg" alt="" width="240" height="48"><img class="cover-art" src="assets/editions/isa198x.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Isa198x</span>
+            <span class="project-category">Instruction-set specifications</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>Executable CPU instruction-set specifications and the disassemblers built on them.</p>
+            <a href="https://github.com/isa198x">Isa198x on GitHub <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="format198x" data-project data-group="family">
+        <h3 class="visually-hidden">Format198x</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><img class="spine-logo" src="assets/wordmarks/format198x.svg" alt="" width="175" height="25"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><img class="insert-logo" src="assets/wordmarks/format198x.svg" alt="" width="180" height="42"><span class="insert-note">Disk &amp; media libraries</span></span></span>
+                <span class="lid">
+                  <span class="face front"><img class="cover-logo" src="assets/wordmarks/format198x.svg" alt="" width="240" height="48"><img class="cover-art" src="assets/editions/format198x.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Format198x</span>
+            <span class="project-category">Disk &amp; media libraries</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>Reusable libraries for reading and writing retro disk and media formats.</p>
+            <a href="https://format198x.github.io">Explore Format198x <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="debug198x" data-project data-group="family">
+        <h3 class="visually-hidden">Debug198x</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><img class="spine-logo" src="assets/wordmarks/debug198x.svg" alt="" width="175" height="25"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><img class="insert-logo" src="assets/wordmarks/debug198x.svg" alt="" width="180" height="42"><span class="insert-note">Debug information format</span></span></span>
+                <span class="lid">
+                  <span class="face front"><img class="cover-logo" src="assets/wordmarks/debug198x.svg" alt="" width="240" height="48"><img class="cover-art" src="assets/editions/debug198x.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Debug198x</span>
+            <span class="project-category">Debug information format</span>
+            <span class="open-action"><span class="open-label">Open edition</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">Inside the edition</p>
+            <p>Connect assembled code with source lines, symbols and addresses through a shared format.</p>
+            <a href="https://debug198x.github.io">Explore Debug198x <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a>
+          </div>
+        </details>
+      </article>
+</div><aside class="planned" aria-labelledby="planned-heading"><h3 id="planned-heading">Still in the notebook</h3><div class="planned-list"><article class="planned-entry" id="forge198x" data-project data-group="family"><h4><img src="assets/wordmarks/forge198x.svg" alt="Forge198x" width="160" height="24" loading="lazy"></h4><p><span class="status">Planned · deferred</span>A future workbench for writing, assembling, running and debugging retro code.</p></article><article class="planned-entry" id="studio198x" data-project data-group="family"><h4><img src="assets/wordmarks/studio198x.svg" alt="Studio198x" width="160" height="24" loading="lazy"></h4><p><span class="status">Planned · not started</span>Future tools for making graphics, music, sound effects and other media.</p></article></div></aside></section>
+<section class="shelf" id="experiments" data-shelf aria-labelledby="experiments-heading"><div class="shelf-heading"><h2 id="experiments-heading">From the studio notebook</h2><p>Four unpublished games. Ideas being worked out through play.</p></div><div class="editions">
+      <article class="edition long" id="please-use-the-stairs" data-project data-group="experiments">
+        <h3 class="visually-hidden">Please Use the Stairs</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><span class="spine-title">Please Use the Stairs</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><span class="insert-title">Please Use the Stairs</span><span class="insert-note">Unpublished prototype</span></span></span>
+                <span class="lid">
+                  <span class="face front"><span class="cover-title long-title">Please Use the Stairs</span><img class="cover-art" src="assets/editions/please-use-the-stairs.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Please Use the Stairs</span>
+            <span class="project-category">Unpublished prototype</span>
+            <span class="open-action"><span class="open-label">View experiment</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">From the studio notebook</p>
+            <p>Guide six people down three floors while sharing power between two stair sections.</p>
+            <figure><a href="assets/captures/please-use-the-stairs.webp" aria-label="View full-size Please Use the Stairs prototype capture"><img class="capture" src="assets/captures/please-use-the-stairs.webp" alt="Please Use the Stairs: an in-development game capture" width="3456" height="1956" loading="lazy" decoding="async"></a><figcaption>From the unpublished prototype. <a href="assets/captures/please-use-the-stairs.webp">View full-size capture <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a></figcaption></figure>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="haunt-planning" data-project data-group="experiments">
+        <h3 class="visually-hidden">Haunt Planning</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><span class="spine-title">Haunt Planning</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><span class="insert-title">Haunt Planning</span><span class="insert-note">Unpublished prototype</span></span></span>
+                <span class="lid">
+                  <span class="face front"><span class="cover-title">Haunt Planning</span><img class="cover-art" src="assets/editions/haunt-planning.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Haunt Planning</span>
+            <span class="project-category">Unpublished prototype</span>
+            <span class="open-action"><span class="open-label">View experiment</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">From the studio notebook</p>
+            <p>Possess household objects and adapt your scares to different visitors.</p>
+            <figure><a href="assets/captures/haunt-planning.webp" aria-label="View full-size Haunt Planning prototype capture"><img class="capture" src="assets/captures/haunt-planning.webp" alt="Haunt Planning: an in-development game capture" width="1440" height="900" loading="lazy" decoding="async"></a><figcaption>From the unpublished prototype. <a href="assets/captures/haunt-planning.webp">View full-size capture <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a></figcaption></figure>
+          </div>
+        </details>
+      </article>
+      <article class="edition long" id="elevated-stunt-racing" data-project data-group="experiments">
+        <h3 class="visually-hidden">Elevated Stunt Racing</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><span class="spine-title">Elevated Stunt Racing</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><span class="insert-title">Elevated Stunt Racing</span><span class="insert-note">Unpublished prototype</span></span></span>
+                <span class="lid">
+                  <span class="face front"><span class="cover-title long-title">Elevated Stunt Racing</span><img class="cover-art" src="assets/editions/elevated-stunt-racing.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Elevated Stunt Racing</span>
+            <span class="project-category">Unpublished prototype</span>
+            <span class="open-action"><span class="open-label">View experiment</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">From the studio notebook</p>
+            <p>Drive exposed elevated tracks with boost and risky landings.</p>
+            <figure><a href="assets/captures/elevated-stunt-racing.webp" aria-label="View full-size Elevated Stunt Racing prototype capture"><img class="capture" src="assets/captures/elevated-stunt-racing.webp" alt="Elevated Stunt Racing: an in-development game capture" width="1280" height="720" loading="lazy" decoding="async"></a><figcaption>From the unpublished prototype. <a href="assets/captures/elevated-stunt-racing.webp">View full-size capture <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a></figcaption></figure>
+          </div>
+        </details>
+      </article>
+      <article class="edition" id="bowl-knockout" data-project data-group="experiments">
+        <h3 class="visually-hidden">Bowl Knockout</h3>
+        <details name="editions">
+          <summary>
+            <span class="scene" aria-hidden="true">
+              <span class="ground-shadow"></span>
+              <span class="book">
+                <span class="face back"></span>
+                <span class="face spine"><span class="spine-title">Bowl Knockout</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span>
+                <span class="face edge"></span><span class="face top"></span><span class="face bottom"></span>
+                <span class="face tray"><span class="insert"><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg><span class="insert-title">Bowl Knockout</span><span class="insert-note">Unpublished prototype</span></span></span>
+                <span class="lid">
+                  <span class="face front"><span class="cover-title">Bowl Knockout</span><img class="cover-art" src="assets/editions/bowl-knockout.webp" alt="" width="768" height="768" loading="lazy" decoding="async"><span class="cover-imprint"><span>Phosphene Studio</span><svg class="imprint-star" aria-hidden="true" viewBox="0 0 32 32"><use href="#studio-star"></use></svg></span></span>
+                  <span class="face lid-inner"><span>Made carefully,<br>and mostly for<br>the love of it.</span></span>
+                </span>
+              </span>
+            </span>
+            <span class="project-title">Bowl Knockout</span>
+            <span class="project-category">Unpublished prototype</span>
+            <span class="open-action"><span class="open-label">View experiment</span><span class="close-label">Close edition</span><svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></span>
+          </summary>
+          <div class="notebook">
+            <p class="note-heading">From the studio notebook</p>
+            <p>Car combat in a bowl, with elastic tethers.</p>
+            <figure><a href="assets/captures/bowl-knockout.webp" aria-label="View full-size Bowl Knockout prototype capture"><img class="capture" src="assets/captures/bowl-knockout.webp" alt="Bowl Knockout: an in-development game capture" width="1600" height="900" loading="lazy" decoding="async"></a><figcaption>From the unpublished prototype. <a href="assets/captures/bowl-knockout.webp">View full-size capture <svg class="arrow" aria-hidden="true" viewBox="0 0 32 32"><use href="#arrow"></use></svg></a></figcaption></figure>
+          </div>
+        </details>
+      </article>
+</div></section>
     </main>
-
-    <footer>
-      <p class="def"><span class="term">phosphene</span><span class="ipa">/ˈfɒsfiːn/ n.</span><br>
-        the light you see when there is none — produced by the visual system itself, not by anything outside it.</p>
-      <p class="legal">© 2026 Steve Hill, trading as Phosphene Studio</p>
+    <footer class="colophon">
+      <div><p class="footer-brand">Phosphene Studio</p><p class="definition"><i>phosphene</i> /ˈfɒsfiːn/ n.<br>The light you see when there is none — produced by the visual system itself, not by anything outside it.</p></div>
+      <div class="contact"><a href="mailto:hello@phosphene.uk">hello@phosphene.uk</a><p class="legal">© 2026 Steve Hill, trading as Phosphene Studio</p></div>
+      <p class="art-note">Cover illustrations are studio artwork. Game captures show the unpublished prototypes.</p>
     </footer>
   </div>
 </body>

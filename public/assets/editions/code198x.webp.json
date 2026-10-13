@@ -1,0 +1,11 @@
+{
+  "prompt": "Extract and redraw only the central vintage desktop computer illustration from image 1 as flat straight-on screenprinted artwork. Image 2 is the approved treatment: an isolated illustration on genuine transparent alpha, navy ink, pale citron highlights, restrained orange accents, fine tactile printmaking grain. Preserve the wide vintage CRT monitor with blank dark screen and chunky keyboard below it. Remove all packaging, box faces, spine, title, lettering, publisher, logo/star imprint, ground shadow, rectangular cover background and borders. Do not reproduce a software box. No text anywhere, including screen and keycaps. Only the vintage computer monitor and keyboard; omit background orange stripes so the composition remains compact. The computer may retain its drawn dimensional form but the artwork plane has no packaging perspective. Center the full subject generously on a square transparent canvas, filling about 85 percent width and 75 percent height. Keep opaque citron within the subject; all surrounding space genuinely transparent. 1024 square PNG.",
+  "tool": "image_gen.imagegen",
+  "source": "/Users/stevehill/.codex/generated_images/01a135c3-33f6-79f2-9095-af222f28a4c7/exec-8e55365e-94d4-46e7-a64f-673199db3fe9.png",
+  "transparent_background": true,
+  "references": [
+    "assets/plates/code198x-cover.png",
+    ".impeccable/prototypes/css-edition/rachel-art.png"
+  ],
+  "conversion": "Pillow RGBA, LANCZOS thumbnail 768x768, WebP quality=88 method=6 exact=True"
+}

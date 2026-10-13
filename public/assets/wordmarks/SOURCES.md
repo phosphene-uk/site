@@ -1,0 +1,1 @@
+Authentic 198x wordmarks copied without alteration from the selected family specimen at /Users/stevehill/Projects/198x/docs/plans/2026-10-05-family-design/preview/wordmarks. Construction: real Oxanium Extra Bold outlines; selected 2026-10-05. See the 198x family-visual-identity decision and logo-suite/vectors/FONT-SOURCES.md. Font licences are in ../fonts/.

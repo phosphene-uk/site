@@ -1,0 +1,1 @@
+Lilita One regular and Akatab regular/bold: https://github.com/google/fonts/tree/main/ofl/ (lilitaone and akatab). Caveat variable copied from the verified 198x logo-suite source. All self-hosted, under the adjoining SIL Open Font Licences. No package dependency or system-font installation.

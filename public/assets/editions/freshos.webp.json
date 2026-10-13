@@ -1,0 +1,11 @@
+{
+  "prompt": "Extract and redraw only the central computer illustration from image 1 as flat straight-on screenprinted artwork. Image 2 is the approved treatment: an isolated illustration on genuine transparent alpha, navy ink, pale citron highlights, vivid orange accents, fine tactile printmaking grain. Preserve the vintage CRT computer, keyboard, small floppy disk and its green leaf on the screen. Remove all packaging, box faces, spine, title, lettering, publisher, logo/star imprint, ground shadow, rectangular cover background and borders. Do not reproduce a software box. No text anywhere. Only the illustrated computer with its leaf, keyboard and floppy disk; omit background orange stripes so the composition remains compact. The computer may retain its drawn dimensional form but the artwork plane has no packaging perspective. Center the full subject generously on a square transparent canvas, filling about 85 percent width and 75 percent height. Keep opaque citron within the subject; all surrounding space genuinely transparent. 1024 square PNG.",
+  "tool": "image_gen.imagegen",
+  "source": "/Users/stevehill/.codex/generated_images/01a135c3-33f6-79f2-9095-af222f28a4c7/exec-5da070f7-06cb-4447-b187-f7e76f7df55a.png",
+  "transparent_background": true,
+  "references": [
+    "assets/plates/freshos-cover.png",
+    ".impeccable/prototypes/css-edition/rachel-art.png"
+  ],
+  "conversion": "Pillow RGBA, LANCZOS thumbnail 768x768, WebP quality=88 method=6 exact=True"
+}
