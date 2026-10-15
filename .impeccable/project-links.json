@@ -1,5 +1,23 @@
 [
   {
+    "name": "Rachel App Store",
+    "url": "https://apps.apple.com/app/id6794358319",
+    "page_title": "Rachel: Tactical Card Game",
+    "name_present": true
+  },
+  {
+    "name": "Rachel support",
+    "url": "https://rachel.stevehill.xyz/support/",
+    "page_title": "Support - Rachel",
+    "name_present": true
+  },
+  {
+    "name": "Rachel privacy",
+    "url": "https://rachel.stevehill.xyz/privacy/",
+    "page_title": "Privacy Policy - Rachel",
+    "name_present": true
+  },
+  {
     "name": "Rachel",
     "url": "https://rachel.stevehill.xyz",
     "page_title": "Rachel: Tactical Card Game",
