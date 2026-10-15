@@ -200,7 +200,7 @@ Filters are plain text buttons with no fill or border, at least (44px) high. The
 
 Without JavaScript, ordinary anchor navigation reaches each shelf and all projects remain present. JavaScript reveals the filter group, hides the fallback navigation and adds the optional Less motion control. There are no text fields or chips in this implementation.
 
-Links use an underline offset of (.25em); hover increases its thickness from (1px) to (2px). Interactive elements share a visible orange outline of (3px), offset by (7px). A skip link becomes visible on focus.
+Links use an underline offset of (.25em); hover increases its thickness from (1px) to (2px). Notebook links, the footer contact and the motion-control label have a minimum clickable height of (44px), including mobile. Rachel's additional store, support and privacy links form a vertical group inside its existing notebook. Interactive elements share a visible orange outline of (3px), offset by (7px). A skip link becomes visible on focus.
 
 ### Edition disclosure
 
