@@ -1,6 +1,6 @@
 # Game portfolio review — 15 October 2026
 
-The inventory for issue #6 is complete as a local review draft. It recommends two sequential tests: physical controller and couch play for Bowl Knockout, followed by unfamiliar-player testing of Please Use the Stairs. These are proposed experiments, not new production commitments.
+The inventory for issue #6 is complete as a local review draft. It recommends two sequential tests: conventional gamepad and couch play for Bowl Knockout, followed by unfamiliar-player testing of Please Use the Stairs. These are proposed experiments, not new production commitments.
 
 Bowl remains the first completion candidate and Elevated Stunt Racing retains its approved second production priority. Haunt Planning retains its existing next-test brief. No game code, engine choice, release scope or website catalogue has changed.
 
