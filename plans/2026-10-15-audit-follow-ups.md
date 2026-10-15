@@ -8,3 +8,7 @@ Preserve the approved 18-project catalogue and native edition interaction. No ne
 4. Run the Impeccable detector once on the final changed UI. Interpret pre-existing/documented material details in context. Push the two verified commits, inspect live HTML/CSS and update the audit with implementation outcomes and remaining visitor-testing limits.
 
 Use a loopback-only preview server for the existing `public/` directory. Stop it and close task tabs at completion. The release-copy work in `rachel-multiverse/rachel-site` is verified and published separately.
+
+## Outcome
+
+Completed and published in `25f3a68` and `3335fe1`. The four Rachel links are native HTML and keyboard reachable. At 320px, all measured Rachel, motion and contact targets are 44px high, with document width 320px. The prototype caption link is also 44px high; the image remains within its column. All 18 projects remain. Live HTML/CSS match the verified files and the deployment check succeeded. The final detector returned only the reviewed design-system advisories. The audit report records the separate Rachel release repair and remaining visitor-testing limits.

@@ -4,6 +4,18 @@ The approved showcase is live and the checked visitor journeys work. The first f
 
 Scope: the audit portion of [issue #4](https://github.com/phosphene-uk/site/issues/4). We inspected Phosphene's live HTML, CSS, JavaScript and linked destinations, then exercised the journeys in Chrome. No application code or live content changed. This report does not complete #4's separate implementation and feedback requirements.
 
+## Implementation follow-up — 15 October 2026
+
+The findings below preserve the audit snapshot. A1–A3 have since been addressed with approval:
+
+- **A1 published:** Rachel-site commits `60e7bde` and [385a6df](https://github.com/rachel-multiverse/rachel-site/commit/385a6df) correct release availability, the seven-theme count and outdated screenshot alt text, and remove the forthcoming label from the rendered social card. The earlier release-flag commit already existed locally and was preserved. The production build generated seven pages; the stale-release check failed on the previous live baseline and passed on the built output. After the successful GitHub Pages deployment, all seven live pages passed the same check and the live social PNG matched the inspected 1200×630 asset byte-for-byte. The web search cache still showed old App Store copy; current Chrome inspection of the listing confirmed version 1.4 and seven themes.
+- **A2 published:** [25f3a68](https://github.com/phosphene-uk/site/commit/25f3a68) adds verified Apple-platform availability and direct App Store, support and privacy links within Rachel's existing edition, retaining Explore Rachel. Native HTML contains all four links. Chrome verified the new accessible names, Tab from Explore Rachel to the store link, and Tab from privacy to the next edition. The store shortcut loaded successfully in Chrome; a later curl attempt returned exit 56, so that request was not counted as a passing check.
+- **A3 published:** [3335fe1](https://github.com/phosphene-uk/site/commit/3335fe1) gives notebook links, footer contact and the mobile motion label a 44px minimum height. At a measured 320px Chrome viewport, all four Rachel links, contact and the motion label measured 44px high; document width remained 320px and all 18 projects remained present. The prototype caption link also measured 44px, and its capture remained within its column. Phosphene's live HTML and CSS match the verified local files byte-for-byte; the deployment check succeeded.
+
+The final Phosphene detector run returned 52 advisories, all about design-system sizes, colours and radii, with no non-advisory findings. The reviewed material details remain intentional. Rachel's detector flagged its unchanged press blockquote border; that styling was outside this copy correction. Its build also emitted `[Shiki] The language "z80" doesn't exist, falling back to "plaintext".` No dependencies were added or upgraded.
+
+Real visitor feedback, physical-device testing, full assistive-technology coverage and field performance measurements remain outstanding. The audit score has not been recalculated from these narrow fixes. No GitHub issue was closed or edited; #4 still needs its visitor-feedback evidence before completion.
+
 ## Implementation integrity verdict: pass
 
 The implementation expresses the approved growing library of software editions: native disclosures, readable project notes outside the transformed artwork, authentic 198x marks, four explicit unpublished prototypes and two explicit planned entries. The live page contains all 18 approved projects. Keep that direction, the Phosphene name without a Studio suffix, and the static deployment model recorded in PRODUCT.md.
