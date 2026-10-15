@@ -1,0 +1,8 @@
+# Game portfolio inventory and experiment selection
+
+Scope: issue #6, studio coordination only. Preserve all game repositories and the approved website catalogue.
+
+1. Inspect the existing Games portfolio status and shortlist, project READMEs, local rules/decisions, Git remotes, source entry points and existing build/verification artifacts for Rachel, Chaotic Tanx, Sleigh Down, enhanced Breakout and the Games/Haunt Planning prototypes. Distinguish shipped, prototype, concept and learning-only work; verify aliases rather than counting them twice.
+2. Record repository ownership, artifact freshness, declared versus verified platforms, gameplay question, scope, asset burden, support implications and commercial uncertainty. Existing reports and captures are historical evidence, not new playtests.
+3. Write `.impeccable/portfolio/2026-10-15-game-portfolio.md` with the complete discovered inventory, no more than two recommended experiments, bounded test plans and reasons to park alternatives. Keep this report local: the website repository is public, and its catalogue approval does not cover the private repositories and unannounced concepts in the full inventory. Write a brief public completion record in `docs/portfolio/2026-10-15-game-portfolio.md`. Do not start implementation or invent revenue/playtest evidence.
+4. Verify cited paths/remotes and any release claims; review the recommendations against the evidence. Verify the full report is ignored; commit and push only the public completion record and this plan. No temporary builds, game launches, installs or background processes are required for this inventory pass.
