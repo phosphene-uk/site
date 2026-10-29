@@ -1,6 +1,6 @@
 # Phosphene ident · motion study
 
-**Chosen direction:** Optical · glowing o. On 2026-10-13 Steve approved light gathering into a radial star inside the name and resolving into the ordinary o. On 2026-10-29 he replaced the star with a new mark, a bold ring with two fainter rings of light around it, because the bare star looked too close to Claude's spark logo (see `plans/2026-10-29-glowing-o-mark.md`). The motion keeps the approved structure with the new mark; it's awaiting his review. This is a review prototype, not an introduction installed in the website or any game.
+**Chosen direction:** Optical · glowing o. On 2026-10-13 Steve approved light gathering into a radial star inside the name and resolving into the ordinary o. On 2026-10-29 he replaced the star with a new mark, a bold ring with two fainter rings of light around it, because the bare star looked too close to Claude's spark logo (see `plans/2026-10-29-glowing-o-mark.md`). He approved the reworked motion the same day and chose the separate-mark ending as the default: the finished frame is the wordmark with the glowing o beside it, matching the website header. The glowing-o ending, where the rings cross-fade into the letter, stays available for comparison. This is a review prototype, not an introduction installed in the website or any game.
 
 Open `preview.html` directly in a browser for the self-contained version, with fonts, styles and animation embedded. Rebuild it after editing with `python3 prototypes/ident/export-preview.py`.
 

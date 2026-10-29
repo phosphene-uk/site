@@ -19,8 +19,8 @@ class Element {
 const selectors = Object.fromEntries(['.controls','#timeline','#time','#replay','#pause','#still','#status','.pixel-fallback'].map(key => [key, new Element()]));
 const simple = new Element(); simple.value = 'simple';
 const optical = new Element(); optical.value = 'optical'; optical.checked = true;
-const beside=new Element(); beside.value='beside'; beside.checked=false;
-const letter=new Element(); letter.value='letter'; letter.checked=true;
+const beside=new Element(); beside.value='beside'; beside.checked=true;
+const letter=new Element(); letter.value='letter'; letter.checked=false;
 const parts = Object.fromEntries(['.rings','.seed','.ident-name'].map(key => [key,new Element()]));
 parts['.rings'].children = [new Element(), new Element(), new Element()];
 parts['.rings'].parentElement = new Element();
@@ -41,7 +41,7 @@ function choose(input) { simple.checked=false; optical.checked=false; input.chec
 const ringState = () => JSON.stringify(parts['.rings'].children.map(circle => ({...circle.attributes, ...circle.style})));
 function finalState() { return {starOpacity:parts['.rings'].parentElement.style.opacity,star:parts['.rings'].parentElement.getAttribute('transform'),letter:parts['.ident-name'].querySelector('.letter-o').style.opacity,x:parts['.ident-name'].getAttribute('x'),y:parts['.ident-name'].getAttribute('y'),pixels:JSON.stringify(pixels),name:{...parts['.ident-name'].style},rings:ringState(),seed:{...parts['.seed'].style}}; }
 assert.equal(finalState().letter,'1');
-assert.equal(finalState().starOpacity,'0','The chosen default ends on the complete wordmark');
+assert.equal(finalState().starOpacity,'1','The chosen default ends on the wordmark with the mark beside it');
 selectors['#still'].checked=true; selectors['#still'].handlers.change();
 beside.checked=true; letter.checked=false; beside.handlers.change();
 selectors['#still'].checked=false; selectors['#still'].handlers.change();
