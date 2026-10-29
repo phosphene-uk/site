@@ -61,8 +61,12 @@ Steve approved the CSS 3D Rachel prototype with a thicker spine, recessed bindin
 
 ## Public name
 
-On 2026-10-13 Steve approved using Phosphene alone: name and radial star, with no Studio suffix in the mark or website copy. Studio198x retains its own project name.
+On 2026-10-13 Steve approved using Phosphene alone: name and mark, with no Studio suffix in the mark or website copy. Studio198x retains its own project name.
+
+## Mark approval
+
+On 2026-10-29 Steve replaced the radial star with the glowing o: a bold ring with two fainter rings of light around it (radii 6.8, 11 and 14.6 in a 32-unit box; strokes 3, 1.2 and .9; opacity 1, .6 and .3). A bare sixteen-ray star looked too close to Claude's spark logo, especially small and repeated. He compared five directions and a second round of variations, approved it in place at every size the site uses, and judged it better than the star. The `studio-star` symbol and `imprint-star` class names are kept for the new mark. Record: `plans/2026-10-29-glowing-o-mark.md`.
 
 ## Ident approval
 
-On 2026-10-13 Steve chose the two-second optical ident: perceived light gathers into the radial star in the o position, then resolves into the ordinary o as the complete Phosphene wordmark appears. Use this ending at every size, including pixel rendering. The one-second simple sequence remains the compact alternative; reduced motion uses the completed wordmark. The approved preview is `prototypes/ident/preview.html`. Integration into individual titles is a separate task.
+On 2026-10-13 Steve chose the two-second optical ident: perceived light gathers into the radial star in the o position, then resolves into the ordinary o as the complete Phosphene wordmark appears. On 2026-10-29 he approved the same motion rebuilt for the glowing o: the core ring grows from the light and the halos spread outwards, then, in the o position, cross-fade into the letter. He said he almost prefers the separate-mark ending for this mark; which ending is the default is still to be confirmed. Use this ending at every size, including pixel rendering. The one-second simple sequence remains the compact alternative; reduced motion uses the completed wordmark. The approved preview is `prototypes/ident/preview.html`. Integration into individual titles is a separate task.

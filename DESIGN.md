@@ -99,7 +99,7 @@ components:
 
 **Creative North Star: "Software editions with restrained Studio notebook details"**
 
-The collection takes the form of illustrated software editions on a slate-blue ground. Citron covers, rounded display lettering and a fine radial studio imprint make separate projects feel like work from the same maker. Small handwritten notes add a personal voice without taking over the catalogue.
+The collection takes the form of illustrated software editions on a slate-blue ground. Citron covers, rounded display lettering and the glowing-o studio imprint make separate projects feel like work from the same maker. Small handwritten notes add a personal voice without taking over the catalogue.
 
 The objects have physical depth: a thick spine, recessed binding groove and raised cover lip. Opening an edition reveals readable notes outside the transformed object. The approved CSS 3D Rachel prototype establishes construction; the selected library mockup remains a composition reference. The earlier baked-perspective construction gates are superseded by the explicit CSS 3D approval recorded in PRODUCT.md and the surface brief.
 
@@ -190,7 +190,7 @@ The front face sits (2px) forward; the board backing sits (2px) behind the lid. 
 
 The edition silhouette has subtly rounded board corners and a visibly thick spine. The three radius tokens describe disclosure focus geometry, the asymmetric cover and the spine. The (3px) disclosure radius does not turn the project into a filled card.
 
-Rules are generally (1px). Planned-work paper has square corners. The radial studio imprint uses fine strokes; arrow icons are (18px) with an unfilled stroke. Covers use flat illustration files; CSS constructs perspective and depth around them.
+Rules are generally (1px). Planned-work paper has square corners. The glowing-o studio imprint is a bold ring with two fainter rings; arrow icons are (18px) with an unfilled stroke. Covers use flat illustration files; CSS constructs perspective and depth around them.
 
 ## Components
 
@@ -216,7 +216,7 @@ Notebook content uses a top rule, clear body text and a handwritten heading. Rea
 
 ### Identity and imagery
 
-The Phosphene wordmark is live Lilita text paired with the radial star, without a Studio suffix. The 198x SVG wordmarks are authentic sibling assets; retain their artwork. Edition illustrations in `public/assets/editions/` are illustrative studio artwork, while `public/assets/captures/` contains real prototype captures. The footer states this distinction. Asset provenance must accompany shipping rasters.
+The Phosphene wordmark is live Lilita text paired with the glowing o (a bold ring with two fainter rings of light), without a Studio suffix. It replaced the radial star on 2026-10-29. The 198x SVG wordmarks are authentic sibling assets; retain their artwork. Edition illustrations in `public/assets/editions/` are illustrative studio artwork, while `public/assets/captures/` contains real prototype captures. The footer states this distinction. Asset provenance must accompany shipping rasters.
 
 The page is static HTML, CSS and progressively enhanced JavaScript, with self-hosted fonts. It has no build step or package dependencies. Preserve native content access, project links, contact and legal attribution when extending the design.
 
