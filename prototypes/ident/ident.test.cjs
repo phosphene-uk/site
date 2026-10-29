@@ -21,9 +21,10 @@ const simple = new Element(); simple.value = 'simple';
 const optical = new Element(); optical.value = 'optical'; optical.checked = true;
 const beside=new Element(); beside.value='beside'; beside.checked=false;
 const letter=new Element(); letter.value='letter'; letter.checked=true;
-const parts = Object.fromEntries(['.rays','.seed','.ident-name'].map(key => [key,new Element()]));
-parts['.rays'].parentElement = new Element();
-parts['.rays'].parentElement.setAttribute('transform','translate(449 94) scale(2.1)');
+const parts = Object.fromEntries(['.rings','.seed','.ident-name'].map(key => [key,new Element()]));
+parts['.rings'].children = [new Element(), new Element(), new Element()];
+parts['.rings'].parentElement = new Element();
+parts['.rings'].parentElement.setAttribute('transform','translate(449 94) scale(2.1)');
 parts['.ident-name'].setAttribute('x',204); parts['.ident-name'].setAttribute('y',124); parts['.ident-name'].setAttribute('font-size',88);
 const mark = new Element(); mark.querySelector = key => parts[key]; mark.viewBox = {baseVal:{width:520}};
 let pixels = [];
@@ -37,13 +38,16 @@ vm.runInNewContext(fs.readFileSync(path.join(__dirname,'ident.js'),'utf8'), {doc
 const click = key => selectors[key].handlers.click();
 function step(at) { now=at; const callbacks=[...frames.values()]; frames.clear(); callbacks.forEach(callback=>callback(at)); }
 function choose(input) { simple.checked=false; optical.checked=false; input.checked=true; input.handlers.change(); }
-function finalState() { return {starOpacity:parts['.rays'].parentElement.style.opacity,star:parts['.rays'].parentElement.getAttribute('transform'),letter:parts['.ident-name'].querySelector('.letter-o').style.opacity,x:parts['.ident-name'].getAttribute('x'),y:parts['.ident-name'].getAttribute('y'),pixels:JSON.stringify(pixels),name:{...parts['.ident-name'].style},rays:{...parts['.rays'].style},seed:{...parts['.seed'].style}}; }
+const ringState = () => JSON.stringify(parts['.rings'].children.map(circle => ({...circle.attributes, ...circle.style})));
+function finalState() { return {starOpacity:parts['.rings'].parentElement.style.opacity,star:parts['.rings'].parentElement.getAttribute('transform'),letter:parts['.ident-name'].querySelector('.letter-o').style.opacity,x:parts['.ident-name'].getAttribute('x'),y:parts['.ident-name'].getAttribute('y'),pixels:JSON.stringify(pixels),name:{...parts['.ident-name'].style},rings:ringState(),seed:{...parts['.seed'].style}}; }
 assert.equal(finalState().letter,'1');
 assert.equal(finalState().starOpacity,'0','The chosen default ends on the complete wordmark');
 selectors['#still'].checked=true; selectors['#still'].handlers.change();
 beside.checked=true; letter.checked=false; beside.handlers.change();
 selectors['#still'].checked=false; selectors['#still'].handlers.change();
 const opticalFinal=finalState();
+// Beside the name, the finished mark is exactly the approved geometry.
+assert.deepEqual(parts['.rings'].children.map(circle => [circle.attributes.r, circle.style.opacity]), [['6.800','1'],['11.000','0.6'],['14.600','0.3']]);
 assert.equal(frames.size,0);
 click('#replay'); assert.equal(frames.size,1); step(320);
 assert.notEqual(JSON.stringify(pixels),opticalFinal.pixels);
@@ -95,4 +99,4 @@ step(startTime+2100); assert.deepEqual(finalState(),integratedSimple);
 selectors['#still'].checked=true; selectors['#still'].handlers.change();
 beside.checked=true; letter.checked=false; beside.handlers.change();
 assert.deepEqual(finalState(),opticalFinal);
-console.log('PASS: modern and pixel stars settle into the normal o; final states agree across animation variants; mode switching keeps one frame loop; pause, completion, visibility and reduced motion cancel work.');
+console.log('PASS: the rings finish at the approved sizes; modern and pixel rings settle into the normal o; final states agree across animation variants; mode switching keeps one frame loop; pause, completion, visibility and reduced motion cancel work.');

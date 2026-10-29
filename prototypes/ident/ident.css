@@ -34,7 +34,7 @@ figure { margin: 0; min-width: 0; }
 .ident { width: 76%; max-height: 70%; color: var(--citron); overflow: visible; }
 .portrait .ident { width: 85%; }
 .ident text { font-family: Lilita, sans-serif; fill: currentColor; letter-spacing: -.025em; }
-.rays { fill: none; stroke: currentColor; stroke-width: .8; }
+.rings { fill: none; stroke: currentColor; }
 .seed { fill: currentColor; opacity: 0; }
 canvas, .pixel-fallback { display: block; width: 100%; height: 100%; image-rendering: pixelated; }
 figcaption { display: flex; justify-content: space-between; gap: 14px; padding-top: 11px; font-size: 14px; color: var(--muted); }

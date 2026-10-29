@@ -22,6 +22,13 @@ let request = null;
 let started = 0;
 let pixelFrame = -1;
 
+// The mark: a bold core ring with two fainter halos, in a 32-unit box centred on the origin.
+const RINGS = [{ r: 6.8, opacity: 1 }, { r: 11, opacity: .6 }, { r: 14.6, opacity: .3 }];
+// The halos follow the core outwards, like an afterglow spreading.
+const RING_DELAY = { simple: 60, optical: 120 };
+// Pixel study colours: citron, and citron mixed into ink at 60% and 30% for the halos.
+const PIXEL_RINGS = ['#eced9f', '#969f79', '#56645c'];
+
 const clamp = value => Math.max(0, Math.min(1, value));
 const progress = (ms, start, end) => clamp((ms - start) / (end - start));
 const settle = value => 1 - (1 - value) ** 4;
@@ -35,8 +42,8 @@ const svgElement = (name, attributes = {}) => {
 
 // Optical layers are bounded to each mark, leaving the background perfectly still.
 const opticalMarks = marks.map((mark, index) => {
-  const rays = mark.querySelector('.rays');
-  const star = rays.parentElement;
+  const rings = mark.querySelector('.rings');
+  const star = rings.parentElement;
   const name = mark.querySelector('.ident-name');
   const original = { star: star.getAttribute('transform'), x: name.getAttribute('x'), y: name.getAttribute('y') };
   const before = svgElement('tspan'); before.textContent = 'Ph';
@@ -64,16 +71,15 @@ const opticalMarks = marks.map((mark, index) => {
   star.prepend(field);
   const echoes = ['#8fe8df', '#c6a5ee'].map(color => {
     const ring = svgElement('ellipse', { rx: 34, ry: 24, fill: 'none', stroke: color, 'stroke-width': .65, class: 'optical-layer' });
-    star.insertBefore(ring, rays);
+    star.insertBefore(ring, rings);
     return ring;
   });
-  const ghostRays = ['#8fe8df', '#c6a5ee'].map(color => {
-    const ghost = rays.cloneNode(true);
+  const ghostRings = ['#8fe8df', '#c6a5ee'].map(color => {
+    const ghost = rings.cloneNode(true);
     ghost.setAttribute('class', 'optical-layer');
     ghost.setAttribute('fill', 'none');
     ghost.setAttribute('stroke', color);
-    ghost.setAttribute('stroke-width', '.8');
-    star.insertBefore(ghost, rays);
+    star.insertBefore(ghost, rings);
     return ghost;
   });
   const ghostNames = ['#8fe8df', '#c6a5ee'].map(color => {
@@ -83,7 +89,7 @@ const opticalMarks = marks.map((mark, index) => {
     mark.insertBefore(ghost, name);
     return ghost;
   });
-  return { star, original, letter, burst, revealRect, revealId, revealGradient, viewWidth: mark.viewBox.baseVal.width, rays, name, seed: mark.querySelector('.seed'), field, echoes, ghostRays, ghostNames };
+  return { star, original, letter, burst, revealRect, revealId, revealGradient, viewWidth: mark.viewBox.baseVal.width, rings: [...rings.children], ghostRings: ghostRings.map(ghost => [...ghost.children]), name, seed: mark.querySelector('.seed'), field, echoes, ghostNames };
 });
 
 function positionMarks() {
@@ -101,8 +107,11 @@ function positionMarks() {
     const start = part.name.getStartPositionOfChar(2);
     part.letterX = start.x + .2565 * fontSize;
     part.letterY = y - .25 * fontSize;
-    part.star.setAttribute('transform', integrated ? `translate(${part.letterX} ${part.letterY}) scale(${fontSize * .48 / 32})` : part.original.star);
-    part.rays.style.strokeWidth = integrated ? '1.15' : '.8';
+    // In the o position the core ring's centre line sits on the middle of Lilita's o stroke,
+    // stretched to the letter's proportions (461 × 520 units).
+    const ringScale = fontSize * .17 / 6.8;
+    part.star.setAttribute('transform', integrated ? `translate(${part.letterX} ${part.letterY}) scale(${ringScale} ${ringScale * 1.13})` : part.original.star);
+    part.rings[0].style.strokeWidth = integrated ? '4.4' : '3';
     part.burst.setAttribute('cx', part.letterX);
     part.burst.setAttribute('cy', part.letterY);
     part.revealRect.setAttribute('fill', `url(#${part.revealId}-${integrated ? 'burst' : 'light'})`);
@@ -123,6 +132,17 @@ function pixelLine(x0, y0, x1, y1) {
   }
 }
 
+// Integer midpoint circle, one pixel wide.
+function pixelCircle(cx, cy, r) {
+  let x = r, y = 0, error = 1 - r;
+  while (x >= y) {
+    for (const [px, py] of [[x, y], [y, x], [-y, x], [-x, y], [-x, -y], [-y, -x], [y, -x], [x, -y]]) context.fillRect(cx + px, cy + py, 1, 1);
+    y++;
+    if (error < 0) error += 2 * y + 1;
+    else { x--; error += 2 * (y - x) + 1; }
+  }
+}
+
 function drawPixel(ms) {
   if (!context) return;
   const frame = Math.min(11, Math.floor(ms / duration * 11));
@@ -132,13 +152,14 @@ function drawPixel(ms) {
   const optical = variant === 'optical';
   context.fillStyle = '#162a40';
   context.fillRect(0, 0, 320, 200);
-  const rayProgress = optical ? progress(tick, 650, 1250) : progress(tick, 120, 640);
   const integrated = treatment === 'letter';
   const starX = integrated ? 137 : 217;
   const starY = integrated ? 102 : 100;
   const originX = integrated ? 109 : 92;
   const letterMorph = integrated ? (optical ? progress(tick, 1120, 1640) : progress(tick, 480, 800)) : 0;
-  const radius = Math.round((integrated ? 4 : 16) * settle(rayProgress));
+  // Ring radii in pixels: beside the name the mark is 32 pixels across; in the o, it matches the 10-pixel glyph.
+  const radii = integrated ? [4, 6, 8] : [7, 11, 15];
+  const delay = optical ? RING_DELAY.optical : RING_DELAY.simple;
   const separation = optical ? Math.round(3 * (1 - settle(progress(tick, 700, 1500)))) : 0;
   if (optical && tick > 0 && tick < 1000) {
     const ring = Math.round((integrated ? 11 : 25) * (1 - settle(progress(tick, 150, 1050))) + 2);
@@ -151,14 +172,19 @@ function drawPixel(ms) {
     }
   }
   if (frame > 0 && (!optical || tick > 600) && letterMorph < 1) {
-    const passes = separation ? [[-separation, '#8fe8df'], [separation, '#c6a5ee'], [0, '#eced9f']] : [[0, '#eced9f']];
-    for (const [offset, color] of passes) {
-      context.fillStyle = color;
-      for (let ray = 0; ray < (integrated ? 8 : 16); ray++) {
-        const angle = ray * Math.PI / (integrated ? 4 : 8);
-        const inner = Math.round(radius * letterMorph);
-        pixelLine(starX + offset + Math.round(Math.cos(angle) * inner), starY + Math.round(Math.sin(angle) * inner), starX + offset + Math.round(Math.cos(angle) * radius), starY + Math.round(Math.sin(angle) * radius));
-      }
+    const passes = separation ? [[-separation, '#8fe8df'], [separation, '#c6a5ee'], [0, null]] : [[0, null]];
+    for (const [offset, fringe] of passes) {
+      radii.forEach((target, ring) => {
+        // The halos dim first as the light withdraws into the letter.
+        if (ring > 0 && letterMorph > .4) return;
+        const grow = settle(optical ? progress(tick, 650 + ring * delay, 1250 + ring * delay) : progress(tick, 120 + ring * delay, 640 + ring * delay));
+        const r = Math.round(target * grow);
+        if (r < 1) return;
+        context.fillStyle = fringe || PIXEL_RINGS[ring];
+        pixelCircle(starX + offset, starY, r);
+        // The core is two pixels thick, matching the lettering.
+        if (ring === 0 && r > 1) pixelCircle(starX + offset, starY, r - 1);
+      });
     }
   }
   context.fillStyle = '#eced9f';
@@ -166,7 +192,7 @@ function drawPixel(ms) {
   [...'Phosphene'].forEach((letter, index) => {
     if (integrated && letter === 'o' && letterMorph < 1) {
       // Grow the actual letter outline as the light withdraws from its centre.
-      // Two integer-pixel stages bridge the one-pixel rays to the two-pixel type.
+      // Two integer-pixel stages bridge the rings to the two-pixel type.
       if (letterMorph > 0) {
         const weight = letterMorph < .5 ? 1 : 2;
         GLYPHS.o.forEach((row, y) => [...row].forEach((bit, x) => {
@@ -188,7 +214,8 @@ function drawPixel(ms) {
 function render(ms) {
   elapsed = Math.max(0, Math.min(duration, ms));
   const optical = variant === 'optical';
-  const rays = settle(optical ? progress(elapsed, 650, 1250) : progress(elapsed, 120, 640));
+  const delay = optical ? RING_DELAY.optical : RING_DELAY.simple;
+  const grow = RINGS.map((_, ring) => settle(optical ? progress(elapsed, 650 + ring * delay, 1250 + ring * delay) : progress(elapsed, 120 + ring * delay, 640 + ring * delay)));
   const name = settle(optical ? progress(elapsed, 1080, 1850) : progress(elapsed, 390, 950));
   const letterMorph = treatment === 'letter' ? (optical ? progress(elapsed, 1120, 1640) : progress(elapsed, 480, 800)) : 0;
   const letterOpacity = letterMorph * letterMorph * (3 - 2 * letterMorph);
@@ -204,9 +231,13 @@ function render(ms) {
     for (const name of [part.name, ...part.ghostNames]) {
       name.querySelector('.letter-o').style.opacity = treatment === 'letter' ? String(letterOpacity) : '1';
     }
-    // The light clears the counter of the letter as its printed outline appears.
-    part.rays.style.strokeDasharray = letterMorph > 0 ? `${1 - letterMorph} 1` : '1';
-    part.rays.style.strokeDashoffset = String(letterMorph > 0 ? -letterMorph : 1 - rays);
+    // Each ring grows from the centre; the halos fade as the core becomes the printed o.
+    RINGS.forEach((ring, index) => {
+      const circle = part.rings[index];
+      circle.setAttribute('r', (ring.r * grow[index]).toFixed(3));
+      const fade = index ? 1 - letterMorph : 1;
+      circle.style.opacity = String(ring.opacity * Math.min(1, grow[index] * 1.5) * fade);
+    });
     part.seed.style.opacity = String(seed);
     part.name.style.opacity = String(nameOpacity);
     const edge = (part.viewWidth + 100) * (1 - name) - 100;
@@ -225,12 +256,13 @@ function render(ms) {
       ring.style.filter = `blur(${1.8 - focus * 1.2}px)`;
       ring.setAttribute('transform', `translate(${sign * (5 - focus * 4)} ${sign * 1.5}) scale(${1.1 - focus * .84})`);
     });
-    part.ghostRays.forEach((ghost, index) => {
-      ghost.style.opacity = String(fringe * .65);
-      ghost.style.strokeDasharray = '1';
-      ghost.style.strokeDashoffset = String(1 - rays);
-      ghost.style.filter = `blur(${(1 - rays) * 1.3}px)`;
-      ghost.setAttribute('transform', `translate(${(index ? 1 : -1) * separation} 0)`);
+    part.ghostRings.forEach((ghost, index) => {
+      ghost.forEach((circle, ring) => {
+        circle.setAttribute('r', (RINGS[ring].r * grow[ring]).toFixed(3));
+        circle.style.opacity = String(fringe * .65 * RINGS[ring].opacity);
+        circle.style.filter = `blur(${(1 - grow[ring]) * 1.3}px)`;
+        circle.setAttribute('transform', `translate(${(index ? 1 : -1) * separation} 0)`);
+      });
     });
     part.ghostNames.forEach((ghost, index) => {
       const strength = optical ? pulse(elapsed, 1080, 1290, 1780) * .45 : 0;
