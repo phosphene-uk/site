@@ -1,0 +1,7 @@
+{
+  "source": "publish/cover/illustration.svg in phosphene-uk/build-your-first-website, the book's own front-cover illustration, drawn by hand as SVG rather than generated",
+  "tool": "WeasyPrint 70.0 with the book's JetBrains Mono and Akatab fonts, then pdftocairo -transp",
+  "transparent_background": true,
+  "conversion": "Illustration 98 percent of the canvas width, centred on a 768x768 transparent page; Pillow RGBA, WebP quality=88 method=6 exact=True",
+  "createdAt": "2026-11-01T19:34:00Z"
+}
