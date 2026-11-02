@@ -168,7 +168,7 @@ The page is a centred container with a maximum width of (1320px), default paddin
 
 These are inclusive `max-width` breakpoints at (1100px), (850px), (620px) and (359px). At (850px), shelf heading and explanation stack. At (620px), the masthead stacks, navigation wraps, planned entries become one column, and the footer becomes left-aligned in one column. Planned entries lose their internal two-column layout at (1100px).
 
-Shelves have generous separation; thin rules mark section changes without adding card chrome. Open notes stay within their edition's grid column. The current page contains 16 editions and two planned entries; the full 18-project catalogue is an approved instance of this extensible layout.
+Shelves have generous separation; thin rules mark section changes without adding card chrome. Open notes stay within their edition's grid column. The current page contains 17 editions and two planned entries; the full 19-project catalogue is an approved instance of this extensible layout.
 
 ## Elevation & Depth
 
