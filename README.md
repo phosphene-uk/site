@@ -1,15 +1,15 @@
 # phosphene.uk
 
-The Phosphene showcase, deployed to Cloudflare Pages from `public/`.
+The Phosphene showcase, served from `public/` by the Cloudflare Worker `site`.
 
 - `public/index.html` — the complete project catalogue and native edition disclosures
 - `public/styles.css` — identity, responsive shelves and CSS 3D binding
 - `public/site.js` — optional collection filters, deep links and motion control
 - `public/assets/` — local fonts, flat cover illustrations, authentic wordmarks and prototype captures
-- `public/_headers` — security headers applied by Cloudflare Pages
+- `public/_headers` — security headers that Cloudflare applies to every response
 - `DESIGN.md` — design tokens and the approved edition treatment
 
-No build step or package dependencies. Edit the files in `public/`, commit, and push; Cloudflare Pages redeploys automatically. All projects and edition notes work without JavaScript.
+No build step or package dependencies. Edit the files in `public/` on a branch and open a pull request. Merging to `main` deploys straight away: Cloudflare Workers Builds runs `npx wrangler deploy` on `public/`. Pull requests get no Cloudflare build. After each push to `main`, the "Check the live site" workflow waits until phosphene.uk serves every file in `public/` as committed, and fails after five minutes otherwise, so GitHub emails about it. All projects and edition notes work without JavaScript.
 
 For a local preview, run `python3 -m http.server 8000 --directory public` and open `http://localhost:8000`. Stop the server with Control-C when finished.
 
