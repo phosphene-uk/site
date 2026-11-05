@@ -1,0 +1,39 @@
+# Cloudflare Workers Builds deploys main to phosphene.uk, and can fail with no alert: Cloudflare
+# has no notification for failed Workers builds. This waits until the live site serves every
+# file in public/ exactly as committed, and fails otherwise, so GitHub emails about it.
+name: Check the live site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Wait until phosphene.uk serves this commit
+        run: |
+          cd public
+          deadline=$((SECONDS + 300))
+          while :; do
+            stale=""
+            # _headers configures Cloudflare and isn't served as a file.
+            while IFS= read -r f; do
+              want=$(sha256sum < "$f" | cut -d' ' -f1)
+              got=$(curl -fsSL "https://phosphene.uk/$f" | sha256sum | cut -d' ' -f1)
+              [ "$want" = "$got" ] || stale="$stale $f"
+            done < <(find . -type f ! -name _headers | sed 's#^\./##' | sort)
+            if [ -z "$stale" ]; then
+              echo "phosphene.uk serves every file in public/ from ${GITHUB_SHA::7}."
+              exit 0
+            fi
+            if [ "$SECONDS" -ge "$deadline" ]; then
+              echo "::error::After 5 minutes, phosphene.uk still differs from public/ for:$stale"
+              echo "Check the site Worker's builds in Cloudflare."
+              exit 1
+            fi
+            sleep 15
+          done
