@@ -1,0 +1,7 @@
+{
+  "source": "books/code-like-its-198x/cover/illustration.svg in code198x/books, the book's own front-cover illustration, drawn by its illustration.py rather than generated",
+  "tool": "WeasyPrint with the book's JetBrains Mono, then pdftocairo -transp at 96 dpi",
+  "transparent_background": true,
+  "conversion": "Illustration 98 percent of the canvas width, centred on a 768x768 transparent page; cwebp -q 88 -m 6 -exact",
+  "createdAt": "2026-11-05T12:00:00Z"
+}
